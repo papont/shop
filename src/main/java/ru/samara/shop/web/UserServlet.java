@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);
 
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws javax.servlet.ServletException, IOException {
         // запрос идет прямо с сервера
