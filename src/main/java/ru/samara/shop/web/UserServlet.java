@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 @javax.servlet.annotation.WebServlet(name = "UserServlet", urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);

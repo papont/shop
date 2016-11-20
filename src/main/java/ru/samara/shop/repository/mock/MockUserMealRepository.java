@@ -8,6 +8,10 @@ import ru.samara.shop.repository.UserMealRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 @Repository
 public class MockUserMealRepository implements UserMealRepository{
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepository.class);

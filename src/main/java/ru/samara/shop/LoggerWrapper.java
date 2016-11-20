@@ -2,11 +2,11 @@ package ru.samara.shop;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.validation.BindingResult;
-//import ru.javawebinar.topjava.util.exception.ErrorInfo;
-//import ru.javawebinar.topjava.util.exception.NotFoundException;
-//import ru.javawebinar.topjava.util.exception.ValidationException;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 public class LoggerWrapper {
 
     private Logger logger;

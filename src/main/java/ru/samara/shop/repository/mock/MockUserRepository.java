@@ -7,6 +7,10 @@ import ru.samara.shop.repository.UserRepository;
 
 import java.util.List;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 @Repository
 public class MockUserRepository implements UserRepository{
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepository.class);

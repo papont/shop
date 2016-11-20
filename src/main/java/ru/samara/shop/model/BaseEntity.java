@@ -1,7 +1,8 @@
 package ru.samara.shop.model;
 
 /**
- * Created by admin on 13.07.16.
+ * @author papont
+ * @date 13.11.16.
  */
 public class BaseEntity  {
     protected Integer id;

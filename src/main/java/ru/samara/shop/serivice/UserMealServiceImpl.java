@@ -9,6 +9,10 @@ import ru.samara.shop.util.exception.NotFoundException;
 
 import java.util.List;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 @Service
 public class UserMealServiceImpl implements UserService {
 

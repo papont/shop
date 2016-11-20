@@ -5,6 +5,10 @@ import ru.samara.shop.model.UserMeal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 public interface UserMealRepository {
     // UserMeal.user = null
     UserMeal save(UserMeal userMeal, int userId);

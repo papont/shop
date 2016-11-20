@@ -7,6 +7,10 @@ import ru.samara.shop.web.user.UserRestController;
 
 import java.util.Arrays;
 
+/**
+ * @author papont
+ * @date 13.11.16.
+ */
 public class SpringMain {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/applicationContext.xml");

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Papont
- * @d
+ * @author papont
+ * @date 13.11.16.
  */
 public class User extends NamedEntity {
     private String email;
