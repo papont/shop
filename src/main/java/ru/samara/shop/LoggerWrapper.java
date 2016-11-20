@@ -2,6 +2,7 @@ package ru.samara.shop;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.samara.shop.util.exception.NotFoundException;
 
 /**
  * @author papont
@@ -70,10 +71,10 @@ public class LoggerWrapper {
         return new UnsupportedOperationException(msg);
     }
 
-//    public NotFoundException getNotFoundException(String reason) {
-//        logger.error("No data found");
-//        return new NotFoundException(reason);
-//    }
+    public NotFoundException getNotFoundException(String reason) {
+        logger.error("No data found");
+        return new NotFoundException(reason);
+    }
 //
 //    public ValidationException getValidationException(BindingResult result) {
 //        logger.error("Validation exception");
@@ -84,4 +85,5 @@ public class LoggerWrapper {
 //        logger.error("Exception at request " + requestUrl, e);
 //        return new ErrorInfo(requestUrl, e);
 //    }
+
 }

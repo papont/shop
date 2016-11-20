@@ -7,6 +7,13 @@ package ru.samara.shop.model;
 public class BaseEntity  {
     protected Integer id;
 
+    public BaseEntity() {
+    }
+
+    public BaseEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

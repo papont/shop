@@ -1,6 +1,7 @@
-package ru.samara.shop.serivice;
+package ru.samara.shop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;
 import ru.samara.shop.util.exception.NotFoundException;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author papont
  * @date 13.11.16.
  */
+@Service
 public class UserSeviceImpl implements UserService {
 
     @Autowired

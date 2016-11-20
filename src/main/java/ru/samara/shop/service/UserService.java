@@ -1,4 +1,4 @@
-package ru.samara.shop.serivice;
+package ru.samara.shop.service;
 
 import ru.samara.shop.model.User;
 import ru.samara.shop.util.exception.NotFoundException;

@@ -15,7 +15,6 @@ import java.util.List;
 public class MockUserRepository implements UserRepository{
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepository.class);
 
-
     @Override
     public User save(User user) {
         LOG.info("Save" + user);
