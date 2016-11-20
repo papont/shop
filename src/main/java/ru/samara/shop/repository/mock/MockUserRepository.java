@@ -1,13 +1,16 @@
 package ru.samara.shop.repository.mock;
 
+import org.springframework.stereotype.Repository;
 import ru.samara.shop.LoggerWrapper;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;
 
 import java.util.List;
 
+@Repository
 public class MockUserRepository implements UserRepository{
     private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserRepository.class);
+
 
     @Override
     public User save(User user) {

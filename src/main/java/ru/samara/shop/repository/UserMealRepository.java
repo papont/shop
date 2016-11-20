@@ -5,9 +5,6 @@ import ru.samara.shop.model.UserMeal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by user on 13.07.2016.
- */
 public interface UserMealRepository {
     // UserMeal.user = null
     UserMeal save(UserMeal userMeal, int userId);

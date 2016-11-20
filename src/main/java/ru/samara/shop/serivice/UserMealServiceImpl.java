@@ -1,27 +1,48 @@
 package ru.samara.shop.serivice;
 
-import ru.samara.shop.model.UserMeal;
-import ru.samara.shop.repository.UserMealRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ru.samara.shop.model.User;
 
-import java.time.LocalDateTime;
+import ru.samara.shop.repository.UserMealRepository;
+import ru.samara.shop.util.exception.NotFoundException;
+
 import java.util.List;
 
-/**
- * Created by user on 13.07.2016.
- */
-public class UserMealServiceImpl {
+@Service
+public class UserMealServiceImpl implements UserService {
+
+    @Autowired
     private UserMealRepository repository;
-//    UserMeal get(int id, int userId);
-//
-//    void delete(int id, int userId);
-//
-//    List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
-//
-//    List<UserMeal> getAll(int userId);
-//
-//    void deleteAll(int userId);
-//
-//    UserMeal update(UserMeal meal, int userId);
-//
-//    UserMeal save(UserMeal meal, int userId);
+
+
+    @Override
+    public User save(User user) {
+        return null;
+    }
+
+    @Override
+    public void delete(int id) throws NotFoundException {
+
+    }
+
+    @Override
+    public User get(int id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public User getByEmail(int id) throws NotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return null;
+    }
+
+    @Override
+    public void update(User user) throws NotFoundException {
+
+    }
 }

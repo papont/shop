@@ -4,9 +4,6 @@ import ru.samara.shop.model.User;
 
 import java.util.List;
 
-/**
- * Created by user on 13.07.2016.
- */
 public interface UserRepository {
     User save(User user);
 

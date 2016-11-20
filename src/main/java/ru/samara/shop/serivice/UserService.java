@@ -5,9 +5,6 @@ import ru.samara.shop.util.exception.NotFoundException;
 
 import java.util.List;
 
-/**
- * Created by user on 13.07.2016.
- */
 public interface UserService {
     public User save(User user);
 

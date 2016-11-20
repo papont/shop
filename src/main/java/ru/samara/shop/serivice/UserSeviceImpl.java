@@ -1,17 +1,17 @@
 package ru.samara.shop.serivice;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;
 import ru.samara.shop.util.exception.NotFoundException;
 
 import java.util.List;
 
-/**
- * Created by user on 13.07.2016.
- */
 public class UserSeviceImpl implements UserService {
 
+    @Autowired
     private UserRepository repository;
+
     @Override
     public User save(User user) {
         return null;

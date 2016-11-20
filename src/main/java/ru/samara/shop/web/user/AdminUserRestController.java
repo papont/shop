@@ -1,7 +1,13 @@
 package ru.samara.shop.web.user;
 
-/**
- * Created by user on 13.07.2016.
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import ru.samara.shop.serivice.UserService;
+
+@Controller
 public class AdminUserRestController {
+
+    @Autowired
+    private UserService service;
+
 }
