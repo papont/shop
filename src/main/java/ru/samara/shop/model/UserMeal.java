@@ -1,5 +1,7 @@
 package ru.samara.shop.model;
 
+import ru.samara.shop.util.TimeUtil;
+
 import java.time.LocalDateTime;
 
 /**
@@ -55,5 +57,16 @@ public class UserMeal extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "UserMeal{" +
+                "id=" + id +
+                ", dateTime=" + TimeUtil.toString(dateTime) +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                ", user=" + user +
+                '}';
     }
 }
