@@ -5,7 +5,8 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * Created by admin on 13.07.16.
+ * @author Papont
+ * @d
  */
 public class User extends NamedEntity {
     private String email;
@@ -19,7 +20,7 @@ public class User extends NamedEntity {
 
     private Set<Role> autorities;
 
-//    private List<TodoItem> todoItemList = new LinkedList<>();
+    private List<TodoItem> todoItemList = new LinkedList<>();
 
     public User() {
     }
