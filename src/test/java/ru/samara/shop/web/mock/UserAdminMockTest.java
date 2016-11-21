@@ -37,6 +37,7 @@ public class UserAdminMockTest {
     public void testCreate() throws Exception {
         controller.create(new User(null, "Name", "email@ya.ru", "password", true, Role.ROLE_USER));
     }
+
     @Test
     public void testDelete() throws Exception {
         controller.delete(7);
