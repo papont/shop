@@ -2,9 +2,7 @@ package ru.samara.shop;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.samara.shop.repository.mock.MockUserRepository;
-import ru.samara.shop.web.user.AdminUserRestController;
-import ru.samara.shop.web.user.UserRestController;
+import ru.samara.shop.web.user.AdminRestController;
 
 import java.util.Arrays;
 
@@ -14,14 +12,14 @@ import java.util.Arrays;
  */
 public class SpringMain {
     public static void main(String[] args) {
-        try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/applicationContext.xml")){
+        try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring/spring-app.xml")){
             System.out.println(Arrays.toString(context.getBeanDefinitionNames()));
 
             //MockUserRepository mockUserRepository = (MockUserRepository) context.getBean("mockUserRepository");
             //MockUserRepository mockUserRepository = context.getBean(MockUserRepository.class);
             //UserRestController userRestController = context.getBean(UserRestController.class);
 
-            AdminUserRestController adminUserRestController = context.getBean(AdminUserRestController.class);
+            AdminRestController adminRestController = context.getBean(AdminRestController.class);
 //            adminUserRestController.delete(42);
 
         }

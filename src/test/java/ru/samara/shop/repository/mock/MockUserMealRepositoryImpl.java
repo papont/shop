@@ -13,8 +13,8 @@ import java.util.List;
  * @date 13.11.16.
  */
 @Repository
-public class MockUserMealRepository implements UserMealRepository{
-    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepository.class);
+public class MockUserMealRepositoryImpl implements UserMealRepository{
+    private static final LoggerWrapper LOG = LoggerWrapper.get(MockUserMealRepositoryImpl.class);
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {

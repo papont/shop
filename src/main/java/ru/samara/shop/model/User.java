@@ -1,9 +1,6 @@
 package ru.samara.shop.model;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author papont
@@ -19,21 +16,31 @@ public class User extends NamedEntity {
 
     private Date registered = new Date();
 
-    private Set<Role> autorities;
+    private Set<Role> roles;
 
     private List<TodoItem> todoItemList = new LinkedList<>();
 
     public User() {
     }
 
-    public User(String name, String email, String password, boolean enabled, Date registered, Set<Role> autorities, List<TodoItem> todoItemList) {
-        super(name);
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
+    }
+
+    private Set<Role> getRoles() {
+        return this.roles;
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Role role, Role... roles) {
+        this(id, name, email, password, enabled, EnumSet.of(role, roles));
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
+        super(id, name);
         this.email = email;
         this.password = password;
         this.enabled = enabled;
-        this.registered = registered;
-        this.autorities = autorities;
-        this.todoItemList = todoItemList;
+        this.roles = roles;
     }
 
     public String getEmail() {
@@ -68,12 +75,9 @@ public class User extends NamedEntity {
         this.registered = registered;
     }
 
-    public Set<Role> getAutorities() {
-        return autorities;
-    }
 
-    public void setAutorities(Set<Role> autorities) {
-        this.autorities = autorities;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
