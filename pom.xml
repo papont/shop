@@ -25,6 +25,7 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <!--<spring-data-jpa.version>1.8.0.RELEASE</spring-data-jpa.version>-->
         <!--<spring-security.version>4.0.1.RELEASE</spring-security.version>-->
+        <postgresql.version>9.4-1201-jdbc41</postgresql.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -84,7 +85,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spring -->
+        <!-- Database -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -124,6 +130,8 @@
                 <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
