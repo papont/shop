@@ -7,27 +7,26 @@ import java.util.*;
  * @date 13.11.16.
  */
 public class User extends NamedEntity {
-    private String email;
+    protected String email;
 
     //Length(min = 5)
-    private String password;
+    protected String password;
 
-    private boolean enabled = true;
+    protected boolean enabled = true;
 
     private Date registered = new Date();
 
-    private Set<Role> roles;
+    protected Set<Role> roles;
 
-    private List<TodoItem> todoItemList = new LinkedList<>();
+//    private List<TodoItem> todoItemList = new LinkedList<>();
 
-    public User() {
-    }
+    public User() { }
 
     public User(User u) {
         this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
     }
 
-    private Set<Role> getRoles() {
+    public Set<Role> getRoles() {
         return this.roles;
     }
 
