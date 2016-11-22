@@ -16,7 +16,7 @@ import java.util.Set;
 public class UserTestData {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserTestData.class);
 
-    public static final TestUser USER = new TestUser(BaseEntity.START_SEQ, "User", "user@yandex.ru", "password", true, Role.ROLE_USER);
+    public static final TestUser USER = new TestUser(BaseEntity.START_SEQ, "User", "user@yandex.ru", "user", true, Role.ROLE_USER);
     public static final User ADMIN = new TestUser(BaseEntity.START_SEQ + 1, "Admin", "admin@gmail.com", "admin", true, Role.ROLE_ADMIN);
 
     public static class TestUser extends User {
@@ -64,12 +64,13 @@ public class UserTestData {
 
             TestUser that = (TestUser) o;
 
-            return //comparePassword(this.password, that.password) &&
-                    Objects.equals(this.id, that.id)
-                            && Objects.equals(this.name, that.name)
-                            && Objects.equals(this.email, that.email)
-                            && Objects.equals(this.enabled, that.enabled)
-                            && Objects.equals(this.roles, that.roles);
+//            return comparePassword(this.password, that.password) &&
+            return Objects.equals(this.password, that.password) &&
+                   Objects.equals(this.id, that.id) &&
+                   Objects.equals(this.name, that.name) &&
+                   Objects.equals(this.email, that.email) &&
+                   Objects.equals(this.enabled, that.enabled);
+                   //         && Objects.equals(this.roles, that.roles);
 //                            && Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
         }
     }
