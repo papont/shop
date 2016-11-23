@@ -13,6 +13,8 @@ import ru.samara.shop.model.UserMeal;
 import ru.samara.shop.repository.UserMealRepository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,8 +25,15 @@ import java.util.List;
 @Repository
 public class JdbcUserMealRepositoryImpl implements UserMealRepository {
 
-    private static final RowMapper<UserMeal> ROW_MAPPER =
-            (rs, rowNum) -> new UserMeal(rs.getInt("id"), rs.getTimestamp("dateTime").toLocalDateTime(), rs.getString("description"), rs.getInt("calories"));
+//    private static final RowMapper<UserMeal> ROW_MAPPER =
+//            (rs, rowNum) -> new UserMeal(rs.getInt("id"), rs.getTimestamp("dateTime").toLocalDateTime(), rs.getString("description"), rs.getInt("calories"));
+
+    private static final RowMapper<UserMeal> ROW_MAPPER = new RowMapper<UserMeal>() {
+        @Override
+        public UserMeal mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new UserMeal(rs.getInt("id"), rs.getTimestamp("dateTime").toLocalDateTime(), rs.getString("description"), rs.getInt("calories"));
+        }
+    };
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

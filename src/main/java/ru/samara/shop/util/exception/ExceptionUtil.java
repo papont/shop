@@ -14,13 +14,12 @@ public class ExceptionUtil {
         if (!found) throw LOG.getNotFoundException("Not found entity with " + msg);
     }
 
-
     public static <T> T check(T object, int id) {
         return check(object, "id=" + id);
     }
 
     public static <T> T check(T object, String msg) {
-        if (object == null) throw LOG.getNotFoundException("Not found entity with " + msg);
+        check(object != null, msg);
         return object;
     }
 

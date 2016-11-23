@@ -20,6 +20,10 @@ public class UserMeal extends BaseEntity {
     public UserMeal() {
     }
 
+    public UserMeal(UserMeal meal) {
+        this(meal.id, meal.dateTime, meal.description, meal.calories);
+    }
+
     public UserMeal(Integer id, LocalDateTime dateTime, String description, int calories) {
         super(id);
         this.dateTime = dateTime;
