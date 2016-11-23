@@ -5,6 +5,8 @@ import ru.samara.shop.model.BaseEntity;
 import ru.samara.shop.model.UserMeal;
 
 import java.time.LocalDateTime;
+import static java.time.LocalDateTime.of;
+
 import java.util.function.Function;
 
 /**
