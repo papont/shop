@@ -1,6 +1,9 @@
 package ru.samara.shop.matcher;
 
 import org.junit.Assert;
+import ru.samara.shop.model.User;
+import ru.samara.shop.model.UserMeal;
+
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -18,6 +21,11 @@ public class ModelMatcher<T, R> {
     public ModelMatcher(Function<T, R> entityConverter, Class<T> entityClass) {
         this.entityConverter = entityConverter;
     }
+
+    public ModelMatcher(Function<UserMeal, String> function) {
+
+    }
+
 
     public void assertEquals(T expected, T actual) {
         Assert.assertEquals(entityConverter.apply(expected), entityConverter.apply(actual));
