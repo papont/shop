@@ -17,7 +17,7 @@ import ru.samara.shop.web.user.AdminRestController;
 @ContextConfiguration({
         //"classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-app.xml",
-        //"classpath:spring/mock.xml"
+        "classpath:spring/mock.xml"
         })
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserAdminSpringMockTest {
