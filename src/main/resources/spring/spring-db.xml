@@ -9,6 +9,12 @@
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
+
+    <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
+        <jdbc:script location="classpath:db/initDB.sql"/>
+        <jdbc:script location="classpath:db/populateDB.sql"/>
+    </jdbc:initialize-database>
+
     <bean class="ru.samara.shop.util.DbPopulator">
         <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
     </bean>
