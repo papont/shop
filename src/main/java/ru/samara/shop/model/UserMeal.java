@@ -2,12 +2,14 @@ package ru.samara.shop.model;
 
 import ru.samara.shop.util.TimeUtil;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * @author papont
- * @date 13.11.16.
  */
+@Entity
+@Table(name="meal")
 public class UserMeal extends BaseEntity {
     protected LocalDateTime dateTime;
 
@@ -15,6 +17,7 @@ public class UserMeal extends BaseEntity {
 
     protected int calories;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public UserMeal() {

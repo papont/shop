@@ -1,24 +1,39 @@
 package ru.samara.shop.model;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
 import java.util.*;
 
 /**
  * @author papont
- * @date 13.11.16.
  */
+@Entity
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
 public class User extends NamedEntity {
+    @Column(name = "email", nullable = false, unique = true)
+    @Email
+    @NotEmpty
     protected String email;
 
-    //Length(min = 5)
+    @Column(name = "password", nullable = false)
+    @NotEmpty
+    @Length(min = 5)
     protected String password;
 
+    @Column(name = "enabled", nullable = false)
     protected boolean enabled = true;
 
+    @Column(name = "registered", columnDefinition = "timestamp default now()")
     private Date registered = new Date();
 
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
     protected Set<Role> roles;
-
-//    private List<TodoItem> todoItemList = new LinkedList<>();
 
     public User() { }
 

@@ -9,7 +9,6 @@
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-    <context:component-scan base-package="ru.samara.**.repository.jdbc"/>
 
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
@@ -31,24 +30,54 @@
         <property name="password" value="${database.password}"/>
     </bean>
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
+    <!-- jdbc START -->
+    <!--<context:component-scan base-package="ru.samara.**.repository.jdbc"/>-->
 
-    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-
-
-    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
-        <!--<jdbc:script location="classpath:db/${jdbc.initLocation}"/>-->
-        <!--<jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>-->
-    <!--</jdbc:initialize-database>-->
-
-    <!--<bean class="ru.javawebinar.topjava.util.DbPopulator">-->
-        <!--<constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>-->
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"/>-->
     <!--</bean>-->
+
+    <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"/>-->
+    <!--</bean>-->
+    <!-- jdbc STOP -->
+
+    <context:component-scan base-package="ru.samara.**.repository.jpa"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:packagesToScan="ru.samara.shop.**.model">
+        <!--p:persistenceUnitName="persistenceUnit">-->
+
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
+
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>-->
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>-->
+                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;-->
+                <!--<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>-->
+
+                <!--
+                                    <entry key="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+                                    <entry key="javax.persistence.schema-generation.scripts.create-target" value="${TOPJAVA_ROOT}/conf/ddl/create.ddl"/>
+                                    <entry key="javax.persistence.schema-generation.scripts.drop-target" value="${TOPJAVA_ROOT}/conf/ddl/drop.ddl"/>
+                -->
+            </map>
+        </property>
+
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+                  p:showSql="${jpa.showSql}"
+                  p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect">
+            </bean>
+        </property>
+    </bean>
+
+
+
 
     <!--<tx:annotation-driven/>-->
 

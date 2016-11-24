@@ -2,14 +2,23 @@ package ru.samara.shop.model;
 
 import ru.samara.shop.LoggerWrapper;
 
+import javax.persistence.*;
+
 /**
  * @author papont
- * @date 13.11.16.
  */
+
+@MappedSuperclass
+@Access(AccessType.FIELD)
 public class BaseEntity  {
     protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 
     public static final int START_SEQ = 100000;
+
+
+    @Id
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     protected Integer id;
 
     public BaseEntity() {
