@@ -43,13 +43,14 @@ public class JpaUserRepositoryImpl implements UserRepository{
 //        em.remove(ref);
 //
 //
-//  2.
-    TypedQuery<User> query = em.createQuery("DELETE FROM User u WHERE u.id = :id", User.class);
-    return query.setParameter("id", id).executeUpdate() != 0;
+//  2. HQL = JPQL + Hibernate features
+//    TypedQuery<User> query = em.createQuery("DELETE FROM User u WHERE u.id = :id", User.class);
+//    return query.setParameter("id", id).executeUpdate() != 0;
 
-//        return em.createNamedQuery(User.DELETE)
-//                .setParameter("id", id)
-//                .executeUpdate() != 0;
+// 3.named Query
+        return em.createNamedQuery(User.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
