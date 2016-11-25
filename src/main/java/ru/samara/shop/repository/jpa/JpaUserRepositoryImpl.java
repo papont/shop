@@ -2,13 +2,13 @@ package ru.samara.shop.repository.jpa;
 
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -21,13 +21,14 @@ import java.util.List;
 //    }
 
 @Repository
-//@Transactional(readOnly = true)
+@Transactional(readOnly = true)
 public class JpaUserRepositoryImpl implements UserRepository{
 
     @PersistenceContext
     private EntityManager em;
 
     @Override
+    @Transactional
     public User save(User user) {
         if (user.isNew()) {
             em.persist(user);
@@ -38,6 +39,7 @@ public class JpaUserRepositoryImpl implements UserRepository{
     }
 
     @Override
+    @Transactional
     public boolean delete(int id) {
 //  1.    User ref = em.getReference(User.class, id);
 //        em.remove(ref);
@@ -59,12 +61,15 @@ public class JpaUserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public User getByEmail(String enail) {
-        return null;
+    public User getByEmail(String email) {
+        return (User) em.createNamedQuery(User.BY_EMAIL)
+                .setParameter(1, email)
+                .getSingleResult();
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return em.createNamedQuery(User.ALL_SORTED)
+                .getResultList();
     }
 }

@@ -18,7 +18,7 @@ public interface UserRepository {
     User get(int id);
 
     // null is not found
-    User getByEmail(String enail);
+    User getByEmail(String email);
 
     List<User> getAll();
 }

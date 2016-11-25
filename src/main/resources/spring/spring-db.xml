@@ -79,7 +79,12 @@
 
 
 
-    <!--<tx:annotation-driven/>-->
+    <tx:annotation-driven/>
+
+    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+          p:entityManagerFactory-ref="entityManagerFactory"/>
+
 
     <!--&lt;!&ndash;no pooling&ndash;&gt;-->
     <!--<beans profile="hsqldb">-->
@@ -181,9 +186,6 @@
             <!--</property>-->
         <!--</bean>-->
 
-        <!--&lt;!&ndash; Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) &ndash;&gt;-->
-        <!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"-->
-              <!--p:entityManagerFactory-ref="entityManagerFactory"/>-->
 
         <!--<bean class="ru.javawebinar.topjava.repository.JpaUtil"/>-->
     <!--</beans>-->
