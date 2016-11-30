@@ -2,7 +2,9 @@ package ru.samara.shop.service;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,6 +29,9 @@ import static ru.samara.shop.model.BaseEntity.START_SEQ;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserMealServiceTest /*extends DbTest*/ {
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Autowired
     UserMealService service;
 
@@ -44,10 +49,10 @@ public class UserMealServiceTest /*extends DbTest*/ {
         MATCHER.assertListEquals(Arrays.asList(MEAL4, MEAL3, MEAL2), service.getAll(START_SEQ));
     }
 
-//    @Test
-    @Test(expected = NotFoundException.class)
+    @Test
+//    @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
-        //thrown.expect(NotFoundException.class);
+        thrown.expect(NotFoundException.class);
         service.delete(MEAL1_ID, 1);
     }
 
@@ -64,10 +69,10 @@ public class UserMealServiceTest /*extends DbTest*/ {
         MATCHER.assertEquals(MEAL1, actual);
     }
 
-//    @Test
-    @Test(expected = NotFoundException.class)
+    @Test
+  //  @Test(expected = NotFoundException.class)
     public void testGetNotFound() throws Exception {
-//        thrown.expect(NotFoundException.class);
+        thrown.expect(NotFoundException.class);
         service.get(MEAL1_ID, START_SEQ + 1);
     }
 
@@ -78,12 +83,12 @@ public class UserMealServiceTest /*extends DbTest*/ {
         MATCHER.assertEquals(updated, service.get(MEAL1_ID, START_SEQ));
     }
 
-//    @Test
-    @Test(expected = NotFoundException.class)
+    @Test
+//    @Test(expected = NotFoundException.class)
     public void testNotFoundUpdate() throws Exception {
         UserMeal item = service.get(MEAL1_ID, START_SEQ);
-//        thrown.expect(NotFoundException.class);
-//        thrown.expectMessage("Not found entity with id=" + MEAL1_ID);
+        thrown.expect(NotFoundException.class);
+        thrown.expectMessage("Not found entity with id=" + MEAL1_ID);
         service.update(item, START_SEQ + 1);
     }
 
