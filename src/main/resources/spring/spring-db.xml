@@ -16,7 +16,9 @@
         <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
     </bean>
 
-    <context:component-scan base-package="ru.samara.**.repository.jpa"/>
+    <!--<context:component-scan base-package="ru.samara.**.repository.jpa"/>-->
+
+    <jpa:repositories base-package="ru.samara.**.repository.datajpa"/>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
@@ -78,6 +80,16 @@
               p:url="${database.url}"
               p:username="${database.username}"
               p:password="${database.password}"/>
+    </beans>
+
+
+    <beans profile="jdbc">
+    </beans>
+
+    <beans profile="jpa">
+    </beans>
+
+    <beans profile="datajpa">
     </beans>
 
     <!--<bean id="dataSource"-->
