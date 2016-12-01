@@ -25,8 +25,8 @@ import static ru.samara.shop.UserTestData.*;
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
 })
-//@ActiveProfiles("hsqldb")
-@ActiveProfiles("postgres")
+@ActiveProfiles("hsqldb")
+//@ActiveProfiles("postgres")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
 
