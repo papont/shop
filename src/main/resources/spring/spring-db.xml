@@ -7,40 +7,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
-
-
+    <!--<context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>-->
+    <!--<jdbc:initialize-database data-source="dataSource" enabled="${database.init}">-->
+        <!--<jdbc:script location="classpath:db/initDB.sql"/>-->
+        <!--<jdbc:script location="classpath:db/populateDB.sql"/>-->
+    <!--</jdbc:initialize-database>-->
 
     <jdbc:initialize-database data-source="dataSource" enabled="${database.init}">
-        <jdbc:script location="classpath:db/initDB.sql"/>
-        <jdbc:script location="classpath:db/populateDB.sql"/>
+        <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
+        <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
     </jdbc:initialize-database>
+
 
     <bean class="ru.samara.shop.util.DbPopulator">
         <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
     </bean>
-
-    <!-- no pooling -->
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${database.DriverClassName}"/>
-
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
-    </bean>
-
-    <!-- jdbc START -->
-    <!--<context:component-scan base-package="ru.samara.**.repository.jdbc"/>-->
-
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-        <!--<constructor-arg ref="dataSource"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-        <!--<constructor-arg ref="dataSource"/>-->
-    <!--</bean>-->
-    <!-- jdbc STOP -->
 
     <context:component-scan base-package="ru.samara.**.repository.jpa"/>
 
@@ -77,26 +58,62 @@
     </bean>
 
 
-
-
     <tx:annotation-driven/>
 
     <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
+    <!-- no pooling -->
+    <beans profile="postgres">
+        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-    <!--&lt;!&ndash;no pooling&ndash;&gt;-->
-    <!--<beans profile="hsqldb">-->
-        <!--<context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>-->
+        <bean id="dataSource"
+              class="org.apache.tomcat.jdbc.pool.DataSource"
+              p:driverClassName="org.postgresql.Driver"
+              p:url="${database.url}"
+              p:username="${database.username}"
+              p:password="${database.password}"/>
+    </beans>
 
-        <!--<bean id="dataSource"-->
-              <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
-              <!--p:driverClassName="org.hsqldb.jdbcDriver"-->
-              <!--p:url="${database.url}"-->
-              <!--p:username="${database.username}"-->
-              <!--p:password="${database.password}"/>-->
-    <!--</beans>-->
+    <!--<bean id="dataSource"-->
+        <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="${database.DriverClassName}"/>-->
+
+        <!--<property name="url" value="${database.url}"/>-->
+        <!--<property name="username" value="${database.username}"/>-->
+        <!--<property name="password" value="${database.password}"/>-->
+    <!--</bean>-->
+
+    <!-- jdbc START -->
+    <!--<context:component-scan base-package="ru.samara.**.repository.jdbc"/>-->
+
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"/>-->
+    <!--</bean>-->
+    <!-- jdbc STOP -->
+
+
+
+
+
+
+
+    <!--no pooling-->
+    <beans profile="hsqldb">
+        <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+
+        <bean id="dataSource"
+              class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+              p:driverClassName="org.hsqldb.jdbcDriver"
+              p:url="${database.url}"
+              p:username="${database.username}"
+              p:password="${database.password}"/>
+    </beans>
 
     <!--<beans profile="postgres">-->
         <!--<context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>-->
@@ -155,10 +172,10 @@
         <!--</bean>-->
     <!--</beans>-->
 
-    <!--<beans profile="datajpa,jpa">-->
+    <!--<beans profile="jpa">-->
         <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"-->
               <!--p:dataSource-ref="dataSource"-->
-              <!--p:packagesToScan="ru.javawebinar.topjava.**.model">-->
+              <!--p:packagesToScan="ru.samara.shop.**.model">-->
             <!--&lt;!&ndash;p:persistenceUnitName="persistenceUnit">&ndash;&gt;-->
 
             <!--<property name="jpaPropertyMap">-->
@@ -167,10 +184,10 @@
                     <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>-->
                     <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>&ndash;&gt;-->
 
-                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>-->
-                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>-->
-                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;-->
-                    <!--<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>-->
+                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>&ndash;&gt;-->
 
                     <!--&lt;!&ndash;-->
                                         <!--<entry key="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>-->
@@ -187,11 +204,11 @@
         <!--</bean>-->
 
 
-        <!--<bean class="ru.javawebinar.topjava.repository.JpaUtil"/>-->
+        <!--&lt;!&ndash;<bean class="ru.javawebinar.topjava.repository.JpaUtil"/>&ndash;&gt;-->
     <!--</beans>-->
 
     <!--<beans profile="jpa">-->
-        <!--<context:component-scan base-package="ru.javawebinar.**.repository.jpa"/>-->
+        <!--<context:component-scan base-package="ru.samara.**.repository.jpa"/>-->
     <!--</beans>-->
 
     <!--<beans profile="datajpa">-->

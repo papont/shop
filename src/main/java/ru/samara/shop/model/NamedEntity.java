@@ -1,6 +1,5 @@
 package ru.samara.shop.model;
 
-import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
