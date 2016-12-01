@@ -1,5 +1,6 @@
 package ru.samara.shop.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import ru.samara.shop.util.TimeUtil;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
 })
 
 @Entity
-@Table(name="meals")
+@Table(name = "meals")
 public class UserMeal extends BaseEntity {
 
     public static final String GET = "UserMeal.get";
@@ -36,8 +37,8 @@ public class UserMeal extends BaseEntity {
     protected LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
+    @NotEmpty
     protected String description;
-
 
     @Column(name = "calories")
     protected int calories;
@@ -105,7 +106,7 @@ public class UserMeal extends BaseEntity {
                 ", dateTime=" + TimeUtil.toString(dateTime) +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
-                ", user=" + user +
+//                ", user=" + user +
                 '}';
     }
 }
