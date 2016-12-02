@@ -1,5 +1,6 @@
 package ru.samara.shop.repository.datajpa;
 
+import org.springframework.stereotype.Repository;
 import ru.samara.shop.model.UserMeal;
 import ru.samara.shop.repository.UserMealRepository;
 
@@ -9,6 +10,8 @@ import java.util.List;
 /**
  * @author papont
  */
+
+@Repository
 public class DataJpaUserMealRepositoryImpl implements UserMealRepository {
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
