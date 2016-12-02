@@ -21,4 +21,6 @@ public interface UserService {
     public List<User> getAll();
 
     public void update(User user) throws NotFoundException;
+
+    public void evictCache();
 }
