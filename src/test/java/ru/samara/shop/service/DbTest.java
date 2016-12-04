@@ -22,6 +22,7 @@ abstract public class DbTest {
 
     @Autowired
     protected UserService service;
+
     @Autowired
     private DbPopulator dbPopulator;
 
