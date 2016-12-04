@@ -16,48 +16,6 @@
         <constructor-arg name="scriptLocation" value="classpath:db/populateDB.sql"/>
     </bean>
 
-    <!--<context:component-scan base-package="ru.samara.**.repository.jpa"/>-->
-    <context:component-scan base-package="ru.samara.**.repository.datajpa"/>
-    <jpa:repositories base-package="ru.samara.**.repository.datajpa"/>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:dataSource-ref="dataSource"
-          p:packagesToScan="ru.samara.shop.**.model">
-        <!--p:persistenceUnitName="persistenceUnit">-->
-
-        <property name="jpaPropertyMap">
-            <map>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
-                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
-
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>-->
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>-->
-                <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;-->
-                <!--<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>-->
-
-                <!--
-                                    <entry key="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
-                                    <entry key="javax.persistence.schema-generation.scripts.create-target" value="${TOPJAVA_ROOT}/conf/ddl/create.ddl"/>
-                                    <entry key="javax.persistence.schema-generation.scripts.drop-target" value="${TOPJAVA_ROOT}/conf/ddl/drop.ddl"/>
-                -->
-            </map>
-        </property>
-
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-                  p:showSql="${jpa.showSql}"
-                  p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect">
-            </bean>
-        </property>
-    </bean>
-
-
-    <tx:annotation-driven/>
-
-    <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-          p:entityManagerFactory-ref="entityManagerFactory"/>
 
     <!-- no pooling -->
     <beans profile="postgres">
@@ -83,132 +41,72 @@
     </beans>
 
 
+    <!--Repository implementation-->
     <beans profile="jdbc">
+        <context:component-scan base-package="ru.samara.shop.**.repository.jdbc"/>
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+            <constructor-arg ref="dataSource"/>
+        </bean>
+
+        <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+            <constructor-arg ref="dataSource"/>
+        </bean>
+
+        <bean id="transactionManager"
+              class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource" />
+        </bean>
+    </beans>
+
+     <beans profile="datajpa, jpa">
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+              p:dataSource-ref="dataSource"
+              p:packagesToScan="ru.samara.shop.**.model">
+            <!--p:persistenceUnitName="persistenceUnit">-->
+
+            <property name="jpaPropertyMap">
+                <map>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>
+                    <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>-->
+
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>-->
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>-->
+                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;-->
+                    <!--<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>-->
+
+                    <!--
+                                        <entry key="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+                                        <entry key="javax.persistence.schema-generation.scripts.create-target" value="${TOPJAVA_ROOT}/conf/ddl/create.ddl"/>
+                                        <entry key="javax.persistence.schema-generation.scripts.drop-target" value="${TOPJAVA_ROOT}/conf/ddl/drop.ddl"/>
+                    -->
+                </map>
+            </property>
+
+            <property name="jpaVendorAdapter">
+                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+                      p:databasePlatform="org.hibernate.dialect.PostgreSQL9Dialect"
+                      p:showSql="${jpa.showSql}">
+                </bean>
+            </property>
+        </bean>
+
+        <!-- Transaction manager for a single JPA EntityManagerFactory (alternative to JTA) -->
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+              p:entityManagerFactory-ref="entityManagerFactory"/>
+
+        <bean class="ru.samara.shop.repository.JpaUtil"/>
     </beans>
 
     <beans profile="jpa">
+        <context:component-scan base-package="ru.samara.**.repository.jpa"/>
     </beans>
 
     <beans profile="datajpa">
+        <context:component-scan base-package="ru.samara.**.repository.datajpa"/>
+        <jpa:repositories base-package="ru.samara.**.repository.datajpa"/>
     </beans>
 
-    <!--<bean id="dataSource"-->
-        <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="${database.DriverClassName}"/>-->
-
-        <!--<property name="url" value="${database.url}"/>-->
-        <!--<property name="username" value="${database.username}"/>-->
-        <!--<property name="password" value="${database.password}"/>-->
-    <!--</bean>-->
-
-    <!-- jdbc START -->
-    <!--<context:component-scan base-package="ru.samara.**.repository.jdbc"/>-->
-
-    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-        <!--<constructor-arg ref="dataSource"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-        <!--<constructor-arg ref="dataSource"/>-->
-    <!--</bean>-->
-    <!-- jdbc STOP -->
 
 
-
-
-
-
-
-    <!--no pooling-->
-
-
-    <!--<beans profile="tomcat">-->
-        <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/topjava"/>-->
-        <!--<context:property-placeholder location="classpath:db/tomcat.properties" system-properties-mode="OVERRIDE"/>-->
-    <!--</beans>-->
-
-    <!--<beans profile="heroku">-->
-        <!--<context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>-->
-
-        <!--<bean class="java.net.URI" id="dbUrl">-->
-            <!--<constructor-arg value="${DATABASE_URL}"/>-->
-        <!--</bean>-->
-        <!--<bean id="dataSource"-->
-              <!--class="org.apache.tomcat.jdbc.pool.DataSource"-->
-              <!--p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"-->
-              <!--p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"-->
-              <!--p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"-->
-              <!--p:driverClassName="org.postgresql.Driver"-->
-              <!--p:validationQuery="SELECT 1 FROM users"-->
-              <!--p:maxActive="5"-->
-              <!--p:minIdle="1"-->
-              <!--p:maxWait="20000"-->
-              <!--p:initialSize="2"-->
-              <!--p:maxIdle="5"-->
-              <!--p:testOnBorrow="true"-->
-              <!--p:removeAbandoned="true"-->
-              <!--p:testOnConnect="true"-->
-              <!--p:testWhileIdle="true"/>-->
-    <!--</beans>-->
-
-    <!--&lt;!&ndash;Repository implementation&ndash;&gt;-->
-    <!--<beans profile="jdbc">-->
-        <!--<context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>-->
-        <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
-            <!--<constructor-arg ref="dataSource"/>-->
-        <!--</bean>-->
-
-        <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
-            <!--<constructor-arg ref="dataSource"/>-->
-        <!--</bean>-->
-
-        <!--<bean id="transactionManager"-->
-              <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-            <!--<property name="dataSource" ref="dataSource" />-->
-        <!--</bean>-->
-    <!--</beans>-->
-
-    <!--<beans profile="jpa">-->
-        <!--<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"-->
-              <!--p:dataSource-ref="dataSource"-->
-              <!--p:packagesToScan="ru.samara.shop.**.model">-->
-            <!--&lt;!&ndash;p:persistenceUnitName="persistenceUnit">&ndash;&gt;-->
-
-            <!--<property name="jpaPropertyMap">-->
-                <!--<map>-->
-                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}" value="${hibernate.format_sql}"/>-->
-                    <!--<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}" value="${hibernate.use_sql_comments}"/>-->
-                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).HBM2DDL_AUTO}" value="${hibernate.hbm2ddl.auto}"/>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).CACHE_REGION_FACTORY}" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SECOND_LEVEL_CACHE}" value="true"/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_QUERY_CACHE}" value="false"/> &lt;!&ndash;default&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;<entry key="#{T(org.hibernate.cache.ehcache.AbstractEhcacheRegionFactory).NET_SF_EHCACHE_CONFIGURATION_RESOURCE_NAME}" value="cache/ehcache.xml"/>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;-->
-                                        <!--<entry key="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>-->
-                                        <!--<entry key="javax.persistence.schema-generation.scripts.create-target" value="${TOPJAVA_ROOT}/conf/ddl/create.ddl"/>-->
-                                        <!--<entry key="javax.persistence.schema-generation.scripts.drop-target" value="${TOPJAVA_ROOT}/conf/ddl/drop.ddl"/>-->
-                    <!--&ndash;&gt;-->
-                <!--</map>-->
-            <!--</property>-->
-
-            <!--<property name="jpaVendorAdapter">-->
-                <!--<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" p:showSql="${jpa.showSql}">-->
-                <!--</bean>-->
-            <!--</property>-->
-        <!--</bean>-->
-
-
-        <!--&lt;!&ndash;<bean class="ru.javawebinar.topjava.repository.JpaUtil"/>&ndash;&gt;-->
-    <!--</beans>-->
-
-    <!--<beans profile="jpa">-->
-        <!--<context:component-scan base-package="ru.samara.**.repository.jpa"/>-->
-    <!--</beans>-->
-
-    <!--<beans profile="datajpa">-->
-        <!--<context:component-scan base-package="ru.javawebinar.**.repository.datajpa"/>-->
-        <!--<jpa:repositories base-package="ru.javawebinar.**.repository.datajpa"/>-->
-    <!--</beans>-->
 </beans>

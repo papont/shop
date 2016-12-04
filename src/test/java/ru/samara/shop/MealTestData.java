@@ -32,12 +32,12 @@ public class MealTestData {
         return updated;
     }
 
-   // public static final ModelMatcher<UserMeal, String> MATCHER = new ToStringModelMatcher<>(UserMeal.class);
+    public static final ModelMatcher<UserMeal, String> MATCHER = new TestUtil.ToStringModelMatcher<>(UserMeal.class);
 
 
-    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(
-            meal -> meal.toString()
-    );
+//    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(
+//            meal -> meal.toString()
+//    );
 
 
 }

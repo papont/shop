@@ -1,17 +1,9 @@
 package ru.samara.shop.service;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.samara.shop.model.UserMeal;
-import ru.samara.shop.util.DbPopulator;
 import ru.samara.shop.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
@@ -20,31 +12,11 @@ import java.util.Arrays;
 import static ru.samara.shop.MealTestData.*;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
-/**
- * @author papont
- */
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
-//@ActiveProfiles("hsqldb")
-@ActiveProfiles("postgres")
-@RunWith(SpringJUnit4ClassRunner.class)
-public class UserMealServiceTest /*extends DbTest*/ {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+abstract public class UserMealServiceTest extends DbTest {
 
     @Autowired
     UserMealService service;
-
-    @Autowired
-    private DbPopulator dbPopulator;
-
-    @Before
-    public void setUp() throws Exception {
-        dbPopulator.execute();
-    }
 
     @Test
     public void testDelete() throws Exception {

@@ -1,9 +1,7 @@
 package ru.samara.shop.repository.datajpa;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;

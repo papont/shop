@@ -18,13 +18,13 @@ public class MockUserMealRepositoryImpl implements UserMealRepository{
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
-        LOG.info("Save" + userMeal);
+        LOG.info("save " + userMeal);
         return userMeal;
     }
 
     @Override
     public boolean delete(int id, int userId) {
-        LOG.info("Delete" + id);
+        LOG.info("delete " + id);
         return true;
     }
 

@@ -3,6 +3,7 @@ package ru.samara.shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.util.StringUtils;
 import ru.samara.shop.model.UserMeal;
 import ru.samara.shop.repository.UserMealRepository;
 import ru.samara.shop.util.exception.ExceptionUtil;
@@ -34,7 +35,8 @@ public class UserMealServiceImpl implements UserMealService {
 
     @Override
     public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId){
-        return repository.getBetween(startDate, endDate.plus(1, ChronoUnit.DAYS), userId);
+        //return repository.getBetween(startDate, endDate.plus(1, ChronoUnit.DAYS), userId);
+        return repository.getBetween(startDate, StringUtils.isEmpty(endDate) ? LocalDateTime.now() : endDate, userId);
     }
 
     @Override
