@@ -19,9 +19,6 @@ import static ru.samara.shop.UserTestData.*;
 
 abstract public class UserServiceTest extends DbTest {
 
-    @Autowired
-    UserService service;
-
     @Test
     public void testSave() throws Exception {
         TestUser tu = new TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER);

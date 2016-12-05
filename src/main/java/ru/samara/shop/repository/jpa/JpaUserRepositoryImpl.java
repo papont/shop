@@ -1,6 +1,5 @@
 package ru.samara.shop.repository.jpa;
 
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.samara.shop.model.User;
@@ -8,7 +7,6 @@ import ru.samara.shop.repository.UserRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
