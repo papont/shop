@@ -11,7 +11,7 @@
     <!--</context-param>-->
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <param-value>postgres, datajpa</param-value>
+        <param-value>postgres, jpa</param-value>
     </context-param>
 
     <context-param>
@@ -37,17 +37,18 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>ru.samara.shop.web.UserServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>userServlet</servlet-name>-->
-        <!--<url-pattern>/users</url-pattern>-->
-    <!--</servlet-mapping>-->
+
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>ru.samara.shop.web.UserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
 </web-app>
