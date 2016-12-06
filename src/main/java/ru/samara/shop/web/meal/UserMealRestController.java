@@ -10,10 +10,6 @@ import ru.samara.shop.service.UserMealService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * @author papont
- * @date 13.11.16.
- */
 @Controller
 public class UserMealRestController {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealRestController.class);

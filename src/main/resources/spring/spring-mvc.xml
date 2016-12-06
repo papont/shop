@@ -7,7 +7,6 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <context:component-scan base-package="ru.samara.**.web"/>
-
     <!--<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>-->
 
     <!--<bean class="ru.samara.shop.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>-->
@@ -19,11 +18,15 @@
         <!--<bean class="ru.samara.shop.web.interceptor.ModelInterceptor"/>-->
     <!--</mvc:interceptors>-->
 
-    <!--<mvc:annotation-driven conversion-service="conversionService">-->
-        <!--<mvc:message-converters>-->
-            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-                <!--<property name="objectMapper" ref="objectMapper"/>-->
-            <!--</bean>-->
+    <!--<mvc:annotation-driven />-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <bean class="ru.samara.shop.util.mapper.HibernateAwareObjectMapper"/>
+                </property>
+            </bean>
+
             <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
                 <!--<property name="supportedMediaTypes">-->
                     <!--<list>-->
@@ -32,8 +35,8 @@
                     <!--</list>-->
                 <!--</property>-->
             <!--</bean>-->
-        <!--</mvc:message-converters>-->
-    <!--</mvc:annotation-driven>-->
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!--<bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">-->
         <!--<property name="converters">-->

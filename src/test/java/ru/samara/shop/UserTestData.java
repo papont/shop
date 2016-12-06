@@ -9,10 +9,7 @@ import java.util.EnumSet;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * @author papont
- * @date: 26.08.2014
- */
+
 public class UserTestData {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserTestData.class);
 

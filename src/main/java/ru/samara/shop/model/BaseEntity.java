@@ -1,15 +1,16 @@
 package ru.samara.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.samara.shop.LoggerWrapper;
+
 
 import javax.persistence.*;
 
-/**
- * @author papont
- */
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
+//@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, isGetterVisibility = NONE, setterVisibility = NONE)
 public class BaseEntity  {
     protected static final LoggerWrapper LOG = LoggerWrapper.get(BaseEntity.class);
 

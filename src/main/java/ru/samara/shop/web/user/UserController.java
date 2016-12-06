@@ -10,12 +10,14 @@ import ru.samara.shop.service.UserService;
 
 @Controller
 public class UserController {
+    public static final String USER="userList";
+
     @Autowired
     private UserService service;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userList(Model model) {
-        model.addAttribute("userList", service.getAll());
-        return "userList";
+        model.addAttribute(USER, service.getAll());
+        return USER;
     }
 }

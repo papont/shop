@@ -1,9 +1,11 @@
 package ru.samara.shop.matcher;
 
 import org.junit.Assert;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.samara.shop.model.User;
 import ru.samara.shop.model.UserMeal;
+import ru.samara.shop.web.json.JsonUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,13 +28,13 @@ public class ModelMatcher<T, R> {
         this.entityClass = entityClass;
     }
 
-//    private T fromJsonValue(String json) {
-//        return JsonUtil.readValue(json, entityClass);
-//    }
-//
-//    private List<T> fromJsonValues(String json) {
-//        return JsonUtil.readValues(json, entityClass);
-//    }
+    private T fromJsonValue(String json) {
+        return JsonUtil.readValue(json, entityClass);
+    }
+
+    private List<T> fromJsonValues(String json) {
+        return JsonUtil.readValues(json, entityClass);
+    }
 
     public void assertEquals(T expected, T actual) {
         Assert.assertEquals(entityConverter.apply(expected), entityConverter.apply(actual));
@@ -46,17 +48,24 @@ public class ModelMatcher<T, R> {
         return list.stream().map(converter).collect(Collectors.toList());
     }
 //
-//    public ResultMatcher contentMatcher(T expect) {
-//        return content().string(
-//                new TestMatcher<T>(expect) {
-//                    @Override
-//                    protected boolean compare(T expected, String body) {
-//                        R actualForCompare = entityConverter.apply(fromJsonValue(body));
-//                        R expectedForCompare = entityConverter.apply(expected);
-//                        return expectedForCompare.equals(actualForCompare);
-//                    }
-//                });
-//    }
+    public ResultMatcher contentMatcher(T expect) {
+        return new ResultMatcher() {
+            @Override
+            public void match(MvcResult result) throws Exception {
+
+            }
+        };
+    }
+//    return content().string(
+//            new TestMatcher<T>(expect) {
+//        @Override
+//        protected boolean compare(T expected, String body) {
+//            R actualForCompare = entityConverter.apply(fromJsonValue(body));
+//            R expectedForCompare = entityConverter.apply(expected);
+//            return expectedForCompare.equals(actualForCompare);
+//        }
+//    });
+
 //
 //    public final ResultMatcher contentListMatcher(T... expected) {
 //        return content().string(new TestMatcher<List<T>>(Arrays.asList(expected)) {
