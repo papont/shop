@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 /**
  * GKislin
  * 06.01.2015.
@@ -47,24 +49,18 @@ public class ModelMatcher<T, R> {
     public static <S, T> List<T> map(List<S> list, Function<S, T> converter) {
         return list.stream().map(converter).collect(Collectors.toList());
     }
-//
-    public ResultMatcher contentMatcher(T expect) {
-        return new ResultMatcher() {
-            @Override
-            public void match(MvcResult result) throws Exception {
 
-            }
-        };
+    public ResultMatcher contentMatcher(T expect) {
+        return content().string(
+            new TestMatcher<T>(expect) {
+        @Override
+        protected boolean compare(T expected, String body) {
+            R actualForCompare = entityConverter.apply(fromJsonValue(body));
+            R expectedForCompare = entityConverter.apply(expected);
+            return expectedForCompare.equals(actualForCompare);
+        }
+    });
     }
-//    return content().string(
-//            new TestMatcher<T>(expect) {
-//        @Override
-//        protected boolean compare(T expected, String body) {
-//            R actualForCompare = entityConverter.apply(fromJsonValue(body));
-//            R expectedForCompare = entityConverter.apply(expected);
-//            return expectedForCompare.equals(actualForCompare);
-//        }
-//    });
 
 //
 //    public final ResultMatcher contentListMatcher(T... expected) {

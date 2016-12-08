@@ -27,7 +27,7 @@ import static  ru.samara.shop.UserTestData.ADMIN;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
-public class AdminRestControllerTest extends WebTest {
+public class AdminUserRestControllerTest extends WebTest {
 
 //    public static final String REST_URL = AdminRestController.REST_URL + '/';
     public static final String REST_URL = "/rest/admin/users/";
