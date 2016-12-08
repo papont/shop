@@ -9,16 +9,16 @@ import ru.samara.shop.util.mapper.HibernateAwareObjectMapper;
 import java.io.IOException;
 import java.util.List;
 
-//import static ru.samara.shop.web.json.JacksonObjectMapper.getMapper;
+import static ru.samara.shop.web.json.JacksonObjectMapper.getMapper;
 
 public class JsonUtil {
     private static final LoggerWrapper LOG = LoggerWrapper.get(JsonUtil.class);
 
-    private static final ObjectMapper mapper = new HibernateAwareObjectMapper();
+//    private static final ObjectMapper mapper = new HibernateAwareObjectMapper();
 
 
     public static <T> List<T> readValues(String json, Class<T> clazz) {
-        ObjectReader reader = mapper.reader(clazz);
+        ObjectReader reader = getMapper().reader(clazz);
         try {
             return reader.<T>readValues(json).readAll();
         } catch (IOException e) {
@@ -28,7 +28,7 @@ public class JsonUtil {
 
     public static <T> T readValue(String json, Class<T> clazz) {
         try {
-            return mapper.readValue(json, clazz);
+            return getMapper().readValue(json, clazz);
         } catch (IOException e) {
             throw LOG.getIllegalArgumentException("Invalid read from JSON:\n'" + json + "'", e);
         }
@@ -36,7 +36,7 @@ public class JsonUtil {
 
     public static <T> String writeValue(T obj) {
         try {
-            return mapper.writeValueAsString(obj);
+            return getMapper().writeValueAsString(obj);
         } catch (JsonProcessingException e) {
             throw new IllegalStateException("Invalid write to JSON:\n'" + obj + "'", e);
         }

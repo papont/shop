@@ -9,7 +9,7 @@
     <context:component-scan base-package="ru.samara.**.web"/>
     <!--<security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>-->
 
-    <!--<bean class="ru.samara.shop.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>-->
+    <bean class="ru.samara.shop.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <!-- serve static resources (*.html, ...) from src/main/webapp/ -->
     <mvc:default-servlet-handler/>
@@ -23,9 +23,9 @@
     <mvc:annotation-driven>
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper">
-                    <bean class="ru.samara.shop.util.mapper.HibernateAwareObjectMapper"/>
-                </property>
+                <property name="objectMapper" ref="objectMapper"/>
+                    <!--<bean class="ru.samara.shop.util.mapper.HibernateAwareObjectMapper"/>-->
+                <!--</property>-->
             </bean>
 
             <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->

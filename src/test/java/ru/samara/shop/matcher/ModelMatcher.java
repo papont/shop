@@ -2,11 +2,14 @@ package ru.samara.shop.matcher;
 
 import org.junit.Assert;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import ru.samara.shop.TestUtil;
 import ru.samara.shop.model.User;
 import ru.samara.shop.model.UserMeal;
 import ru.samara.shop.web.json.JsonUtil;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -62,19 +65,19 @@ public class ModelMatcher<T, R> {
     });
     }
 
-//
-//    public final ResultMatcher contentListMatcher(T... expected) {
-//        return content().string(new TestMatcher<List<T>>(Arrays.asList(expected)) {
-//            @Override
-//            protected boolean compare(List<T> expected, String actual) {
-//                List<R> actualList = map(fromJsonValues(actual), entityConverter);
-//                List<R> expectedList = map(expected, entityConverter);
-//                return expectedList.equals(actualList);
-//            }
-//        });
-//    }
-//
-//    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
-//        return fromJsonValue(TestUtil.getContent(action));
-//    }
+
+    public final ResultMatcher contentListMatcher(T... expected) {
+        return content().string(new TestMatcher<List<T>>(Arrays.asList(expected)) {
+            @Override
+            protected boolean compare(List<T> expected, String actual) {
+                List<R> actualList = map(fromJsonValues(actual), entityConverter);
+                List<R> expectedList = map(expected, entityConverter);
+                return expectedList.equals(actualList);
+            }
+        });
+    }
+
+    public T fromJsonAction(ResultActions action) throws UnsupportedEncodingException {
+        return fromJsonValue(TestUtil.getContent(action));
+    }
 }
