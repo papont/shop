@@ -28,14 +28,14 @@
                 <!--</property>-->
             </bean>
 
-            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
-            <!--<property name="supportedMediaTypes">-->
-            <!--<list>-->
-            <!--<value>text/plain;charset=UTF-8</value>-->
-            <!--<value>text/html;charset=UTF-8</value> &lt;!&ndash;- Fix AbstractMessageConverterMethodProcessor#142 &ndash;&gt;-->
-            <!--</list>-->
-            <!--</property>-->
-            <!--</bean>-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value> <!--- Fix AbstractMessageConverterMethodProcessor#142 -->
+                    </list>
+                </property>
+            </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
 
