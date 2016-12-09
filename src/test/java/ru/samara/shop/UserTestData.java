@@ -34,6 +34,10 @@ public class UserTestData {
             super(id, name, email, password, enabled, roles);
         }
 
+        public TestUser(Integer id, String name, String email, String password, Role roles) {
+            super(id, name, email, password, true, roles);
+        }
+
         public User copyAsUser() {
             return new User(this);
         }
@@ -62,12 +66,12 @@ public class UserTestData {
             TestUser that = (TestUser) o;
 
 //            return comparePassword(this.password, that.password) &&
-            return Objects.equals(this.password, that.password) &&
-                   Objects.equals(this.id, that.id) &&
-                   Objects.equals(this.name, that.name) &&
-                   Objects.equals(this.email, that.email) &&
-                   Objects.equals(this.enabled, that.enabled) &&
-                   Objects.equals(this.roles, that.roles);
+            return Objects.equals(this.password, that.password)
+                   && Objects.equals(this.id, that.id)
+                   && Objects.equals(this.name, that.name)
+                   && Objects.equals(this.email, that.email)
+                   && Objects.equals(this.enabled, that.enabled);
+//                   && Objects.equals(this.roles, that.roles);
 //                            && Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
         }
     }

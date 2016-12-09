@@ -1,6 +1,7 @@
 package ru.samara.shop.web.user;
 
 import org.junit.Test;
+import ru.samara.shop.LoggedUser;
 import ru.samara.shop.TestUtil;
 import ru.samara.shop.UserTestData;
 import ru.samara.shop.model.Role;
@@ -35,7 +36,7 @@ import static  ru.samara.shop.UserTestData.ADMIN;
 @ActiveProfiles({POSTGRES, DATAJPA})
 public class UserRestControllerTest extends WebTest {
     //    public static final String REST_URL = UserRestControllerTest.REST_URL + '/';
-    public static final String REST_URL = "/rest/users/";
+    public static final String REST_URL = "/rest/profile/";
 
     @Autowired
     private UserService service;
@@ -43,9 +44,9 @@ public class UserRestControllerTest extends WebTest {
     @Test
     public void testGet() throws Exception {
         TestUtil.print(mockMvc.perform(get(REST_URL))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentMatcher(USER))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(MATCHER.contentMatcher(USER))
 
         );
     }
@@ -61,12 +62,14 @@ public class UserRestControllerTest extends WebTest {
 
     @Test
     public void testUpdate() throws Exception {
-        TestUser updated = new TestUser("newName", "newEmail", "newPassword", Role.ROLE_USER);
+        TestUser updated = new TestUser(LoggedUser.id(), "newName", "newEmail", "newPassword", Role.ROLE_USER);
         mockMvc.perform(put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isOk());
 
         MATCHER.assertEquals(updated, new User(service.getByEmail("newEmail")));
     }
+
 }

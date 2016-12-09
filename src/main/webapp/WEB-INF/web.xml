@@ -32,6 +32,12 @@
     </listener>
 
     <!-- Spring MVC -->
+    <!--<servlet>-->
+        <!--<servlet-name>dispatcher</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -46,33 +52,27 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>dispatcher</servlet-name>-->
-        <!--<url-pattern>*.form</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>*.form</url-pattern>
+    </servlet-mapping>
 
-    <!--<welcome-file-list>-->
-        <!--<welcome-file>index.html</welcome-file>-->
-        <!--<welcome-file>index.jsp</welcome-file>-->
-        <!--&lt;!&ndash;<welcome-file>users</welcome-file>&ndash;&gt;-->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <!--<welcome-file>users</welcome-file>-->
+    </welcome-file-list>
 
-    <!--</welcome-file-list>-->
 
-    <!--<servlet>-->
-        <!--<servlet-name>dispatcher</servlet-name>-->
-        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
-        <!--<load-on-startup>1</load-on-startup>-->
-    <!--</servlet>-->
-
-    <!--<servlet>-->
-        <!--<servlet-name>userServlet</servlet-name>-->
-        <!--<servlet-class>ru.samara.shop.web.UserServlet</servlet-class>-->
-        <!--<load-on-startup>0</load-on-startup>-->
-    <!--</servlet>-->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>userServlet</servlet-name>-->
-        <!--<url-pattern>/users</url-pattern>-->
-    <!--</servlet-mapping>-->
+    <servlet>
+        <servlet-name>userServlet</servlet-name>
+        <servlet-class>ru.samara.shop.web.UserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userServlet</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>
