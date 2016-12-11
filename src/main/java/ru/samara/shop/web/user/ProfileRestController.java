@@ -12,7 +12,7 @@ import ru.samara.shop.model.User;
 
 @RestController
 @RequestMapping("/rest/profile")
-public class UserRestController {
+public class ProfileRestController {
 
     @Autowired
     private UserHelper helper;
@@ -29,7 +29,7 @@ public class UserRestController {
 
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody User user){
-        helper.update(user);
+        helper.update(user, LoggedUser.id());
     }
 
     @RequestMapping(value = "/text", method = RequestMethod.GET)

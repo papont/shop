@@ -34,7 +34,7 @@ import static  ru.samara.shop.UserTestData.USER;
 import static  ru.samara.shop.UserTestData.ADMIN;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
-public class UserRestControllerTest extends WebTest {
+public class ProfileRestControllerTest extends WebTest {
     //    public static final String REST_URL = UserRestControllerTest.REST_URL + '/';
     public static final String REST_URL = "/rest/profile/";
 

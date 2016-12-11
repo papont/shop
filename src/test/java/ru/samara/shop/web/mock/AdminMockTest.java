@@ -10,25 +10,22 @@ import ru.samara.shop.model.User;
 import ru.samara.shop.util.exception.NotFoundException;
 import ru.samara.shop.web.user.AdminRestController;
 
-/**
- * @author papont
- * @date 21.11.16.
- */
+
 @ContextConfiguration({
-        //"classpath:spring/spring-mvc.xml",
+        "classpath:spring/spring-mvc.xml",
         "classpath:spring/spring-app.xml",
         "classpath:spring/mock.xml"
         })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class UserAdminSpringMockTest {
+public class AdminMockTest {
 
     @Autowired
     private AdminRestController controller;
 
-    @Test
-    public void testCreate() throws Exception {
-        controller.create(new User(null, "Name", "email@ya.ru", "password", true, Role.ROLE_USER));
-    }
+//    @Test
+//    public void testCreate() throws Exception {
+//        controller.create(new User(null, "Name", "email@ya.ru", "password", true, Role.ROLE_USER));
+//    }
 
     @Test
     public void testDelete() throws Exception {

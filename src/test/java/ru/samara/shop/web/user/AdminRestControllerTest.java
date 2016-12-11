@@ -7,6 +7,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
 import ru.samara.shop.TestUtil;
 import ru.samara.shop.UserTestData;
+import ru.samara.shop.UserTestData.TestUser;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
 import ru.samara.shop.service.UserService;
@@ -29,7 +30,7 @@ import static  ru.samara.shop.UserTestData.USER;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
-public class AdminUserRestControllerTest extends WebTest {
+public class AdminRestControllerTest extends WebTest {
 
 //    public static final String REST_URL = AdminRestController.REST_URL + '/';
     public static final String REST_URL = "/rest/admin/users/";
@@ -99,7 +100,7 @@ public class AdminUserRestControllerTest extends WebTest {
 
     @Test
     public void testCreate() throws Exception {
-        UserTestData.TestUser expected = new UserTestData.TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
+        TestUser expected = new TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 //.with(userHttpBasic(ADMIN))

@@ -31,8 +31,13 @@ public class UserHelper {
         service.delete(id);
     }
 
-    public void update(User user){
+    public void update(User user, int id){
         LOG.info("update {}", user);
+        if (user.isNew()) {
+            user.setId(id);
+        } else if (id != user.getId()) {
+            throw LOG.getIllegalStateException(user + "don't updated");
+        }
         service.update(user);
     }
 

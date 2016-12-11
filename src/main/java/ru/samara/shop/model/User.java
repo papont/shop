@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -43,7 +44,7 @@ public class User extends NamedEntity {
     protected boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    @NotEmpty
+    @NotNull
     private Date registered = new Date();
 
 

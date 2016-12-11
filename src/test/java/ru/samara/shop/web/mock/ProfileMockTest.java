@@ -3,8 +3,12 @@ package ru.samara.shop.web.mock;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.samara.shop.UserTestData;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
 import ru.samara.shop.util.exception.NotFoundException;
@@ -12,11 +16,15 @@ import ru.samara.shop.web.user.AdminRestController;
 
 import java.util.Arrays;
 
-/**
- * @author papont
- * @date 21.11.16.
- */
-public class UserAdminMockTest {
+import static ru.samara.shop.UserTestData.*;
+
+@ContextConfiguration({
+        "classpath:spring/spring-mvc.xml",
+        "classpath:spring/spring-app.xml",
+        "classpath:spring/mock.xml"
+})
+@RunWith(SpringJUnit4ClassRunner.class)
+public class ProfileMockTest {
     private static ConfigurableApplicationContext appCtx;
     private static AdminRestController controller;
 
@@ -33,10 +41,12 @@ public class UserAdminMockTest {
     }
 
 
-    @Test
-    public void testCreate() throws Exception {
-        controller.create(new User(null, "Name", "email@ya.ru", "password", true, Role.ROLE_USER));
-    }
+//    @Test
+//    public void testCreate() throws Exception {
+////        controller.create(new User(null, "Name", "email@ya.ru", "password", true, Role.ROLE_USER));
+//        controller.create(new TestUser("New", "new@gmail.com", "newPass", Role.ROLE_USER, Role.ROLE_ADMIN));
+//
+//    }
 
     @Test
     public void testDelete() throws Exception {
