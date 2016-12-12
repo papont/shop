@@ -1,61 +1,69 @@
 package ru.samara.shop.web.meal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import ru.samara.shop.LoggedUser;
-import ru.samara.shop.LoggerWrapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.samara.shop.model.UserMeal;
-import ru.samara.shop.service.UserMealService;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping(UserMealRestController.REST_URL)
 public class UserMealRestController {
-    private static final LoggerWrapper LOG = LoggerWrapper.get(UserMealRestController.class);
 
+    public static final String REST_URL = "/rest/profile/meals";
     @Autowired
-    private UserMealService service;
+    private UserMealHelper helper;
 
-    public UserMeal get(int id){
-        int userId = LoggedUser.id();
-        LOG.info("get meal {} for User {}", id, userId);
-        return service.get(id, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserMeal get(@PathVariable("id") int id){
+        return helper.get(id);
     }
 
-    public void delete(int id){
-        int userId = LoggedUser.id();
-        LOG.info("delete meal {} for User {}", id, userId);
-        service.delete(id, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") int id){
+        helper.delete(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserMeal> getAll(){
-        int userId = LoggedUser.id();
-        LOG.info("getAll for User {}", userId);
-        return service.getAll(userId);
+        return helper.getAll();
     }
 
+    @RequestMapping(method = RequestMethod.DELETE)
     public void deleteAll(){
-        int userId = LoggedUser.id();
-        LOG.info("deleteAll for User {}", userId);
-        service.deleteAll(userId);
+        helper.deleteAll();
     }
 
-    public void update(UserMeal meal){
-        int userId = LoggedUser.id();
-        LOG.info("update {} for User {}", meal, userId);
-        service.update(meal, userId);
+    @RequestMapping(value = "/between", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserMeal> getBetween(
+            @RequestParam(value = "startDate")LocalDateTime startDate,
+            @RequestParam(value = "endDate", defaultValue = "")LocalDateTime endDate){
+        return helper.getBetween(startDate, endDate);
     }
 
-    public UserMeal create(UserMeal meal){
-        int userId = LoggedUser.id();
-        LOG.info("create {} for User {}", meal, userId);
-        return service.save(meal, userId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@RequestBody UserMeal meal, @PathVariable("id") int id){
+        helper.update(meal, id);
     }
 
-    public List<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate){
-        int userId = LoggedUser.id();
-        LOG.info("getBetween {} and {} for User {}", startDate, endDate, userId);
-        return service.getBetween(startDate, endDate, userId);
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserMeal> createWithLocation(@RequestBody UserMeal meal) {
+        UserMeal created = helper.create(meal);
+
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(uriOfNewResource);
+
+        return new ResponseEntity<>(created, httpHeaders, HttpStatus.CREATED);
     }
 }

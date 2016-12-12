@@ -20,7 +20,8 @@
 
     <!--<mvc:annotation-driven />-->
 
-    <mvc:annotation-driven>
+    <!--подключение бина conversionService-->
+    <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="objectMapper"/>
@@ -39,13 +40,14 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">-->
-        <!--<property name="converters">-->
-            <!--<set>-->
-                <!--<bean class="ru.samara.shop.web.converter.StringToLocalDateTimeConverter"/>-->
-            <!--</set>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <!--объявление бина conversionService-->
+    <bean class="org.springframework.context.support.ConversionServiceFactoryBean" id="conversionService">
+        <property name="converters">
+            <set>
+                <bean class="ru.samara.shop.model.converter.StringToLocalDateTimeConverter"/>
+            </set>
+        </property>
+    </bean>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be refered to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>

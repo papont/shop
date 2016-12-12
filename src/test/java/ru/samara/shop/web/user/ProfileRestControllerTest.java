@@ -61,6 +61,7 @@ public class ProfileRestControllerTest extends WebTest {
     }
 
     @Test
+
     public void testUpdate() throws Exception {
         TestUser updated = new TestUser(LoggedUser.id(), "newName", "newEmail", "newPassword", Role.ROLE_USER);
         mockMvc.perform(put(REST_URL)

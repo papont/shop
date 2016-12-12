@@ -1,7 +1,7 @@
 package ru.samara.shop;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
-import ru.samara.shop.web.meal.UserMealRestController;
+import ru.samara.shop.web.meal.UserMealHelper;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public class SpringMain {
               ctx.refresh();
 
               System.out.println("\n" + Arrays.toString(ctx.getBeanDefinitionNames()) + "\n");
-              UserMealRestController userRestController = ctx.getBean(UserMealRestController.class);
+              UserMealHelper userRestController = ctx.getBean(UserMealHelper.class);
               userRestController.delete(42);
 
         }

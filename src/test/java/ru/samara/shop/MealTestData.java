@@ -9,10 +9,6 @@ import static java.time.LocalDateTime.of;
 
 import java.util.function.Function;
 
-/**
- * @author papont
- * @date: 23.1.2014
- */
 public class MealTestData {
     public static final int MEAL1_ID = BaseEntity.START_SEQ + 2;
 
