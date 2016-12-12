@@ -12,9 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
-/**
- * @author papont
- */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "unique_email")})
 @NamedQueries({
@@ -114,19 +111,39 @@ public class User extends NamedEntity {
         this.registered = registered;
     }
 
+    public void setRoles(Role... authorities) {
+        setRoles(Arrays.asList(authorities));
+    }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> authorities) {
+        //this.roles = EnumSet.copyOf(authorities);
+        this.roles = Collections.unmodifiableSet(EnumSet.copyOf(authorities));
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name=" + name +
-                "email='" + email + '\'' +
-                ", password='" + password + '\'' +
+        return "User (" +
+                "id=" + id +
+                ", email=" + email +
+                ", name=" + name +
                 ", enabled=" + enabled +
-                ", registered=" + registered +
-                '}';
+                ", roles=" + roles +
+                ')';
     }
+
+
+//    public void setRoles(Set<Role> roles) {
+//        this.roles = roles;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "name=" + name +
+//                "email='" + email + '\'' +
+//                ", password='" + password + '\'' +
+//                ", enabled=" + enabled +
+//                ", registered=" + registered +
+//                '}';
+//    }
 }
