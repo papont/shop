@@ -13,9 +13,10 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/admin/users")
+@RequestMapping(AdminRestController.REST_URL)
 public class AdminRestController {
 
+    public static final String REST_URL = "/rest/admin/users";
     @Autowired
     private UserHelper helper;
 

@@ -32,8 +32,7 @@ import static ru.samara.shop.model.BaseEntity.START_SEQ;
 @ActiveProfiles({POSTGRES, DATAJPA})
 public class AdminRestControllerTest extends WebTest {
 
-//    public static final String REST_URL = AdminRestController.REST_URL + '/';
-    public static final String REST_URL = "/rest/admin/users/";
+    public static final String REST_URL = AdminRestController.REST_URL + '/';
 
     @Autowired
     private UserService service;
@@ -44,7 +43,7 @@ public class AdminRestControllerTest extends WebTest {
 //                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
-                //.andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(ADMIN));
     }
 

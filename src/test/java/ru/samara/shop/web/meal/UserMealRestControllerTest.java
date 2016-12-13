@@ -27,7 +27,7 @@ import static ru.samara.shop.MealTestData.*;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
-@Transactional
+//@Transactional
 public class UserMealRestControllerTest extends WebTest {
 
     public static final String REST_URL = UserMealRestController.REST_URL + "/";
@@ -42,22 +42,22 @@ public class UserMealRestControllerTest extends WebTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(MEAL1));
     }
-
-    @Test
-    public void testGetNotFound() throws Exception {
-        mockMvc.perform(get(REST_URL + (ADMIN_MEAL.getId())))
-                //.with(userHttpBasic(USER)))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testDeleteNotFound() throws Exception {
-        mockMvc.perform(delete(REST_URL + (ADMIN_MEAL.getId()))
-                .contentType(MediaType.APPLICATION_JSON))
-//                .with(userHttpBasic(USER)))
-                .andDo(print())
-                .andExpect(status().isNotFound());
-    }
+//
+//    @Test
+//    public void testGetNotFound() throws Exception {
+//        mockMvc.perform(get(REST_URL + (ADMIN_MEAL.getId())))
+//                //.with(userHttpBasic(USER)))
+//                .andExpect(status().isNotFound());
+//    }
+//
+//    @Test
+//    public void testDeleteNotFound() throws Exception {
+//        mockMvc.perform(delete(REST_URL + (ADMIN_MEAL.getId()))
+//                .contentType(MediaType.APPLICATION_JSON))
+////                .with(userHttpBasic(USER)))
+//                .andDo(print())
+//                .andExpect(status().isNotFound());
+//    }
 
     @Test
     public void testDelete() throws Exception {
