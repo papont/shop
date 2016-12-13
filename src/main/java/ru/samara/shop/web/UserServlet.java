@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-//@javax.servlet.annotation.WebServlet(name = "userServlet", urlPatterns = "/users")
+@javax.servlet.annotation.WebServlet(name = "userServlet", urlPatterns = "/users")
 public class UserServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);
 
