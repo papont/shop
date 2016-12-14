@@ -40,7 +40,7 @@ public class AdminAjaxController  {
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PUT)
     public void update(@RequestParam("id") int id,
                        @RequestParam("name") String name,
                        @RequestParam("email") String email,

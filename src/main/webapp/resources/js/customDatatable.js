@@ -3,6 +3,7 @@ var ajaxUrl;
 function makeEditable(url) {
     form = $('#detailsForm');
     ajaxUrl = url;
+
     $('#add').click(function(){
         $('#id').val(0);
         $('#editRow').modal();
@@ -16,6 +17,11 @@ function makeEditable(url) {
         save();
         return false;
     });
+
+    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
+        failNoty(event, jqXHR, options, jsExc);
+    });
+
 }
 
 function deleteRow(id) {
@@ -45,13 +51,46 @@ function save() {
     var frm = $('#detailsForm');
     $.ajax({
         url: ajaxUrl,
-        type: "POST",
+        type: "PUT",
         data: frm.serialize(),
         success: function(data) {
             $('#editRow').modal('hide');
             updateTable();
-            //success('Saved');
+            success('Saved');
         }
     });
 }
+
+var failedNote;
+
+function closeNote() {
+    if (filedNote) {
+        filedNote.close();
+        filedNote = undefined;
+    }
+};
+
+function success(text) {
+    closeNote();
+    noty({
+        text: text,
+        type: 'success',
+        layout: 'bottomRight',
+        timeout: true
+    });
+}
+
+function failNoty(event, jqXHR, options, jsExc) {
+    closeNote();
+    var errorInfo = $.parseJSON(jqXHR.responseText);
+
+    failedNote = noty({
+        text: 'Failed: ' + jqXHR.statusText + "<br>" + errorInfo.cause + "<br>" + errorInfo.detail,
+        type: 'error',
+        layout: 'bottomRight'
+    });
+}
+
+
+
 }
