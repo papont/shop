@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="datatables" uri="http://github.com/dandelion/datatables" %>
 <%@ taglib prefix="dandelion" uri="http://github.com/dandelion" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <fmt:setBundle basename="messages.app"/>
 <html>
@@ -102,7 +102,7 @@
 <script type="text/javascript">
     var ajaxUrl='ajax/admin/users/';
     $(function(){
-        makeEditable();
+        makeEditable(ajaxUrl);
     });
 
 </script>
