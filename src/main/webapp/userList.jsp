@@ -100,7 +100,7 @@
 
 </body>
 <script type="text/javascript">
-    var ajaxUrl='ajax/admin/users/';
+    var ajaxUrl='ajax/admin/users';
     $(function(){
         makeEditable(ajaxUrl);
     });

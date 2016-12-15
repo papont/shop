@@ -14,23 +14,34 @@ function makeEditable(url) {
     });
 
     form.submit(function () {
-        save();
+        var frm = $('#detailsForm');
+        $.ajax({
+            type: 'POST',
+            url:  ajaxUrl,
+            data: frm.serialize(),
+            success: function() {
+                $('#editRow').modal('hide');
+                updateTable();
+                success('Saved');
+            }
+        });
+
         return false;
     });
 
-    $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        failNoty(event, jqXHR, options, jsExc);
-    });
+    //$(document).ajaxError(function (event, jqXHR, options, jsExc) {
+    //    failNoty(event, jqXHR, options, jsExc);
+    //});
 
 }
 
 function deleteRow(id) {
     $.ajax({
-        url: ajaxUrl + id,
+        url: ajaxUrl + '/' + id,
         type: 'DELETE',
         success: function() {
             updateTable();
-            success('Deleted');
+           // success('Deleted');
         }
     });
 }
@@ -46,20 +57,6 @@ function updateTable() {
         oTable_datatable.fnDraw();
     });
 
-function save() {
-    debugger;
-    var frm = $('#detailsForm');
-    $.ajax({
-        url: ajaxUrl,
-        type: "PUT",
-        data: frm.serialize(),
-        success: function(data) {
-            $('#editRow').modal('hide');
-            updateTable();
-            success('Saved');
-        }
-    });
-}
 
 var failedNote;
 

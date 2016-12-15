@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/admin/users")
+@RequestMapping(value = "ajax/admin/users")
 public class AdminAjaxController  {
 
     @Autowired
@@ -39,8 +39,7 @@ public class AdminAjaxController  {
         helper.delete(id);
     }
 
-//    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public void update(@RequestParam("id") int id,
                        @RequestParam("name") String name,
                        @RequestParam("email") String email,
