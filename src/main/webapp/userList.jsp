@@ -99,5 +99,33 @@
 
 
 </body>
-<script type="text/javascript" src="./resources/js/customDatatable.js"></script>
+<%--<script type="text/javascript" src="./resources/js/customDatatable.js"></script>--%>
+    <script type="text/javascript" src="./resources/js/main.js"></script>
+    <script type="text/javascript">
+        //var ajaxUrl = '${ajaxUrl}';
+        var ajaxUrl = 'ajax/admin/users';
+
+        $(function(){
+            makeEditable(ajaxUrl);
+        });
+
+//        function init() {
+//            checkedUsers();
+//        }
+
+//        function updateTable() {
+//            $.get(ajaxUrl, function(data){
+//                updateByData(data);
+//                checkedUsers();
+//            });
+//        }
+
+//        function checkedUsers(){
+//            $(':checkbox').each(function () {
+//                if (!$(this).is(":checked")) {
+//                    $(this).parent().parent().css("text-decoration", "line-through");
+//                }
+//            });
+//        }
+    </script>
 </html>
