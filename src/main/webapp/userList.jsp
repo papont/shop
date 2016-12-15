@@ -99,11 +99,5 @@
 
 
 </body>
-<script type="text/javascript">
-    var ajaxUrl='ajax/admin/users';
-    $(function(){
-        makeEditable(ajaxUrl);
-    });
-
-</script>
+<script type="text/javascript" src="./resources/js/customDatatable.js"></script>
 </html>
