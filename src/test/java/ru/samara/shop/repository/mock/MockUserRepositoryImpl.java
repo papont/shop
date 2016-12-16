@@ -57,4 +57,9 @@ public class MockUserRepositoryImpl implements UserRepository{
         LOG.info("getAll");
         return Collections.emptyList();
     }
+
+    @Override
+    public void enable(int id, boolean enabled) {
+
+    }
 }

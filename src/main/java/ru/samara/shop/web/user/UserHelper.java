@@ -50,5 +50,10 @@ public class UserHelper {
         LOG.info("getByEmail {}", email);
         service.getByEmail(email);
     }
+
+    public void enable(int id, boolean enable) {
+        LOG.info("enable " + id);
+        service.enable(id, enable);
+    }
 }
 

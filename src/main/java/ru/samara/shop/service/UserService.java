@@ -19,4 +19,6 @@ public interface UserService {
     public void update(User user) throws NotFoundException;
 
     public void evictCache();
+
+    void enable(int id, boolean enable);
 }

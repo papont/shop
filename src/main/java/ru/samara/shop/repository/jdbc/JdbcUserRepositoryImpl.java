@@ -106,6 +106,11 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                 USER_MAPPER);
     }
 
+    @Override
+    public void enable(int id, boolean enabled) {
+
+    }
+
 //    @Override
 //    @Transactional(readOnly = true)
 //    public List<User> getAll() {

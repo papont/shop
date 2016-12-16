@@ -54,4 +54,10 @@ public class UserSeviceImpl implements UserService {
     @Override
     public void evictCache() {
     }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Override
+    public void enable(int id, boolean enable) {
+        repository.enable(id, enable);
+    }
 }

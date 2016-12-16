@@ -29,10 +29,10 @@ public class AdminAjaxController  {
         return helper.get(id);
     }
 
-//    @RequestMapping(value = "/{id}/enable", method = RequestMethod.POST)
-//    public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
-//        helper.enable(id, enabled);
-//    }
+    @RequestMapping(value = "/{id}/enable", method = RequestMethod.POST)
+    public void enable(@PathVariable("id") int id, @RequestParam("enabled") boolean enabled) {
+        helper.enable(id, enabled);
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") int id) {
