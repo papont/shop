@@ -12,10 +12,6 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * @author papont
- * @date 13.11.16.
- */
 @Service
 public class UserMealServiceImpl implements UserMealService {
 

@@ -14,8 +14,6 @@ import static ru.samara.shop.Profiles.POSTGRES;
 import static ru.samara.shop.UserTestData.*;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 import static ru.samara.shop.Profiles.DATAJPA;
-import static ru.samara.shop.Profiles.HSQLDB;
-//import static ru.samara.shop.Profiles.JPA;
 
 
 @ActiveProfiles({POSTGRES, DATAJPA})
