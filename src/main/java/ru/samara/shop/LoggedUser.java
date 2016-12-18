@@ -6,11 +6,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.samara.shop.model.BaseEntity;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
-import sun.plugin.liveconnect.SecurityContextHelper;
+//import sun.plugin.liveconnect.SecurityContextHelper;
 
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
+
+import static java.util.Objects.*;
 
 /**
  * Mock implementation
@@ -39,14 +41,11 @@ public class LoggedUser implements UserDetails{
         return (user instanceof LoggedUser) ? (LoggedUser) user : null;
     }
 
-
-
     //private static LoggedUser LOGGED_USER = new LoggedUser();
 
     public static LoggedUser get() {
-//        return LOGGED_USER;
-        LoggedUser user =safeGet();
-        Objects.requireNonNull(user, "No authorized user found");
+        LoggedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
         return user;
     }
 

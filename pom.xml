@@ -33,7 +33,9 @@
 
         <spring.version>4.1.6.RELEASE</spring.version>
         <spring-data-jpa.version>1.8.0.RELEASE</spring-data-jpa.version>
-        <spring-security.version>4.0.1.RELEASE</spring-security.version>
+        <spring-security.version>3.2.5.RELEASE</spring-security.version>
+        <spring-security-test.version>4.0.1.RELEASE</spring-security-test.version>
+
         <postgresql.version>9.4-1201-jdbc41</postgresql.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -284,7 +286,7 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
-            <version>${spring-security.version}</version>
+            <version>${spring-security-test.version}</version>
         </dependency>
 
 

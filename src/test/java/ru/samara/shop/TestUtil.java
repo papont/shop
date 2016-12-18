@@ -1,6 +1,6 @@
 package ru.samara.shop;
 
-//import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import ru.samara.shop.matcher.ModelMatcher;
@@ -19,9 +19,9 @@ public class TestUtil {
         return action.andReturn().getResponse().getContentAsString();
     }
 
-//    public static RequestPostProcessor userHttpBasic(User user) {
-//        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
-//    }
+    public static RequestPostProcessor userHttpBasic(User user) {
+        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
+    }
 
     /**
      * Compare entities using toString

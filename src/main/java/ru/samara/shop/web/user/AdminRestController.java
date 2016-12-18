@@ -23,7 +23,6 @@ public class AdminRestController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll(){
-        LoggedUser.safeGet();
         return helper.getAll();
     }
 

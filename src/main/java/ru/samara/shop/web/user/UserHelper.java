@@ -18,6 +18,9 @@ public class UserHelper {
 
     public List<User> getAll(){
         LOG.info("getAll");
+//        List<User> all = service.getAll();
+//        all.forEach(u -> u.setPassword(null));
+//        return all;
         return service.getAll();
     }
 
