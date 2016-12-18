@@ -3,8 +3,12 @@ package ru.samara.shop.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.samara.shop.LoggedUser;
 import ru.samara.shop.model.User;
 import ru.samara.shop.repository.UserRepository;
 import ru.samara.shop.util.exception.ExceptionUtil;
@@ -13,7 +17,7 @@ import ru.samara.shop.util.exception.NotFoundException;
 import java.util.List;
 
 @Service("userService")
-public class UserSeviceImpl implements UserService {
+public class UserSeviceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository repository;
@@ -59,5 +63,14 @@ public class UserSeviceImpl implements UserService {
     @Override
     public void enable(int id, boolean enable) {
         repository.enable(id, enable);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + "is nor found");
+        }
+        return new LoggedUser(user);
     }
 }

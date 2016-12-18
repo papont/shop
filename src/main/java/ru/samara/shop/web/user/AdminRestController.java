@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.samara.shop.LoggedUser;
 import ru.samara.shop.model.User;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ public class AdminRestController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll(){
+        LoggedUser.safeGet();
         return helper.getAll();
     }
 
