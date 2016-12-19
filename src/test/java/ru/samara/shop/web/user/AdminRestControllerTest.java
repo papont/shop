@@ -39,7 +39,7 @@ public class AdminRestControllerTest extends WebTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + (START_SEQ + 1))
-                .with(userHttpBasic(ADMIN)))
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

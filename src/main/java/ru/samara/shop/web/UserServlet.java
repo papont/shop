@@ -13,26 +13,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@javax.servlet.annotation.WebServlet(name = "userServlet", urlPatterns = "/users")
+//@javax.servlet.annotation.WebServlet(name = "userServlet", urlPatterns = "/users")
 public class UserServlet extends HttpServlet {
     private static final LoggerWrapper LOG = LoggerWrapper.get(UserServlet.class);
-
     private WebApplicationContext context;
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws javax.servlet.ServletException, IOException {
         LOG.debug("Redirect to userList");
-
         UserService userService = context.getBean(UserService.class);
         request.setAttribute("userList", userService.getAll());
-
-
         // запрос идет прямо с сервера
         request.getRequestDispatcher("/userList.jsp").forward(request, response);
 
-        //запрос идет через браузер
-//        response.sendRedirect("userList.jsp");
+//        request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp").forward(request, response);
+//запрос идет через браузер
+//response.sendRedirect("userList.jsp");
     }
 
     @Override
@@ -40,7 +36,5 @@ public class UserServlet extends HttpServlet {
         super.init(config);
         // получить контекст spring
         context = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-
-
     }
 }

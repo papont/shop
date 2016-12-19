@@ -4,6 +4,7 @@ import ru.samara.shop.matcher.ModelMatcher;
 import ru.samara.shop.model.BaseEntity;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
+import ru.samara.shop.util.PasswordUtil;
 
 import java.util.EnumSet;
 import java.util.Objects;
@@ -66,26 +67,26 @@ public class UserTestData {
             TestUser that = (TestUser) o;
 
 //            return comparePassword(this.password, that.password) &&
-            return Objects.equals(this.password, that.password)
-                   && Objects.equals(this.id, that.id)
-                   && Objects.equals(this.name, that.name)
-                   && Objects.equals(this.email, that.email)
-                   && Objects.equals(this.enabled, that.enabled);
-//                   && Objects.equals(this.roles, that.roles);
-//                            && Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
+            return Objects.equals(this.password, that.password) &&
+                   Objects.equals(this.id, that.id) &&
+                   Objects.equals(this.name, that.name) &&
+                   Objects.equals(this.email, that.email) &&
+                   Objects.equals(this.enabled, that.enabled) &&
+                   Objects.equals(this.roles, that.roles);// &&
+//                   Objects.equals(this.caloriesPerDay, that.caloriesPerDay);
         }
     }
 
-//    private static boolean comparePassword(String rawPassword, String password) {
-//        if (PasswordUtil.isEncoded(rawPassword)) {
-//            LOG.warn("Expected password couldn't be compared with actual");
-//        } else if (!PasswordUtil.isMatch(rawPassword, password)) {
-//            LOG.error("Password " + password + " doesn't match encoded " + password);
-//            return false;
-//        }
-//        return true;
-//    }
-//
+    private static boolean comparePassword(String rawPassword, String password) {
+        if (PasswordUtil.isEncoded(rawPassword)) {
+            LOG.warn("Expected password couldn't be compared with actual");
+        } else if (!PasswordUtil.isMatch(rawPassword, password)) {
+            LOG.error("Password " + password + " doesn't match encoded " + password);
+            return false;
+        }
+        return true;
+    }
+
     public static final ModelMatcher<User, TestUser> MATCHER = new ModelMatcher<>(
             u -> ((u instanceof TestUser) ? (TestUser) u : new TestUser(u)), User.class);
 
