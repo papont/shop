@@ -10,6 +10,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+//import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import ru.samara.shop.service.UserService;
 
@@ -27,28 +28,28 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 abstract public class WebTest {
-
     protected MockMvc mockMvc;
 
     @Autowired
-    private UserService userService;
+    protected UserService service;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    @Autowired
-    private FilterChainProxy restSecurityFilterChain;
+//    @Autowired
+//    private FilterChainProxy restSecurityFilterChain;
 
     @PostConstruct
     void postConstruct() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilters(restSecurityFilterChain).build();
+//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(restSecurityFilterChain).build();
 //        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
-//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Before
     public void setUp() {
-        userService.evictCache();
+       service.evictCache();
     }
+
+
 }

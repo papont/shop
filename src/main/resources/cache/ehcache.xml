@@ -25,7 +25,6 @@
            diskExpiryThreadIntervalSeconds="1"
            memoryStoreEvictionPolicy="LRU"/>
 
-    <cache name="ru.samara.shop.model.User"
-           maxElementsInMemory="1000"/>
+    <cache name="ru.samara.shop.model.User" maxElementsInMemory="1000"/>
 
 </ehcache>

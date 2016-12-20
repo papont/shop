@@ -45,13 +45,12 @@ public class User extends NamedEntity {
     private Date registered = new Date();
 
 
+    //@JsonIgnore
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
-//    @ElementCollection(fetch = FetchType.LAZY)
     @ElementCollection(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    //@JsonIgnore
     protected Set<Role> roles;
 
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
@@ -116,7 +115,7 @@ public class User extends NamedEntity {
     }
 
     public void setRoles(Collection<Role> authorities) {
-        //this.roles = EnumSet.copyOf(authorities);
+     //   this.roles = EnumSet.copyOf(authorities);
         this.roles = Collections.unmodifiableSet(EnumSet.copyOf(authorities));
     }
 

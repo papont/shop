@@ -23,11 +23,13 @@ public class UserSeviceImpl implements UserService, UserDetailsService {
     private UserRepository repository;
 
     @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public User save(User user) {
         return repository.save(user);
     }
 
     @CacheEvict(value = "users", allEntries = true)
+    @Transactional
     public void delete(int id) {
         ExceptionUtil.check(repository.delete(id), id);
     }
@@ -42,6 +44,7 @@ public class UserSeviceImpl implements UserService, UserDetailsService {
         return ExceptionUtil.check(repository.getByEmail(email), "email=" + email);
     }
 
+    @Override
     @Cacheable("users")
     public List<User> getAll() {
         return repository.getAll();
@@ -54,13 +57,13 @@ public class UserSeviceImpl implements UserService, UserDetailsService {
         ExceptionUtil.check(repository.save(user), user.getId());
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public void evictCache() {
     }
 
-    @CacheEvict(value = "users", allEntries = true)
     @Override
+    @CacheEvict(value = "users", allEntries = true)
     public void enable(int id, boolean enable) {
         repository.enable(id, enable);
     }

@@ -31,7 +31,6 @@ public class AdminRestController {
         return helper.get(id);
     }
 
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody User user, @PathVariable("id") int id){
         helper.update(user, id);

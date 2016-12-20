@@ -18,5 +18,8 @@ public interface UserRepository {
 
     List<User> getAll();
 
-    void enable(int id, boolean enabled);
+    default void enable(int id, boolean enable) {
+        throw new UnsupportedOperationException("Enable for this profile is not supported");
+    }
+
 }

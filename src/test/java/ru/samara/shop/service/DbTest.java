@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.samara.shop.repository.JpaUtil;
 import ru.samara.shop.util.DbPopulator;
 
 
@@ -26,9 +27,14 @@ abstract public class DbTest {
     @Autowired
     private DbPopulator dbPopulator;
 
+
+    @Autowired
+    private JpaUtil jpaUtil;
+
     @Before
     public void setUp() throws Exception {
         dbPopulator.execute();
         service.evictCache();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 }
