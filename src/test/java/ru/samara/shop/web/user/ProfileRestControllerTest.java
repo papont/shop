@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import org.springframework.test.context.ActiveProfiles;
 
 import static ru.samara.shop.Profiles.DATAJPA;
+import static ru.samara.shop.Profiles.HSQLDB;
 import static ru.samara.shop.Profiles.POSTGRES;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import static  ru.samara.shop.UserTestData.MATCHER;
 import static  ru.samara.shop.UserTestData.USER;
 import static  ru.samara.shop.UserTestData.ADMIN;
 
-@ActiveProfiles({POSTGRES, DATAJPA})
+@ActiveProfiles({HSQLDB, DATAJPA})
 public class ProfileRestControllerTest extends WebTest {
     //    public static final String REST_URL = UserRestControllerTest.REST_URL + '/';
     public static final String REST_URL = "/rest/profile/";

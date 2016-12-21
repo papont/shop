@@ -53,6 +53,8 @@ public class User extends NamedEntity {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     protected Set<Role> roles;
 
+//    @ElementCollection(fetch = FetchType.EAGER)
+
 //    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user", fetch = FetchType.LAZY)
 //    private List<UserMeal> userMeals = new LinkedList<>();
 

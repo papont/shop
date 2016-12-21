@@ -9,10 +9,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.samara.shop.Profiles.HSQLDB;
 import static ru.samara.shop.Profiles.POSTGRES;
 import static ru.samara.shop.Profiles.DATAJPA;
 
-@ActiveProfiles({POSTGRES, DATAJPA})
+@ActiveProfiles({HSQLDB, DATAJPA})
 public class ResourceControllerTest extends WebTest {
 
     @Test

@@ -5,13 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.transaction.annotation.Transactional;
 
 import ru.samara.shop.model.UserMeal;
 import ru.samara.shop.service.UserMealService;
 import ru.samara.shop.util.exception.NotFoundException;
 import ru.samara.shop.web.WebTest;
 import ru.samara.shop.web.json.JsonUtil;
+
+import javax.transaction.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -27,7 +29,7 @@ import static ru.samara.shop.MealTestData.*;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
-//@Transactional
+@Transactional
 public class UserMealRestControllerTest extends WebTest {
 
     public static final String REST_URL = UserMealRestController.REST_URL + "/";

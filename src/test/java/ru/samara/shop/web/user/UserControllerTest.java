@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.*;
 
 import org.springframework.test.context.ActiveProfiles;
 
+import static ru.samara.shop.Profiles.HSQLDB;
 import static ru.samara.shop.TestUtil.userHttpBasic;
 import static ru.samara.shop.UserTestData.*;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
@@ -18,7 +19,7 @@ import static ru.samara.shop.Profiles.DATAJPA;
 import static ru.samara.shop.Profiles.POSTGRES;
 
 
-@ActiveProfiles({POSTGRES, DATAJPA})
+@ActiveProfiles({HSQLDB, DATAJPA})
 public class UserControllerTest extends WebTest {
 
     @Test

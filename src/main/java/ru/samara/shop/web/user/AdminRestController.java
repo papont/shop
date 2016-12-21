@@ -16,8 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping(AdminRestController.REST_URL)
 public class AdminRestController {
-
     public static final String REST_URL = "/rest/admin/users";
+
     @Autowired
     private UserHelper helper;
 
@@ -31,7 +31,8 @@ public class AdminRestController {
         return helper.get(id);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody User user, @PathVariable("id") int id){
         helper.update(user, id);
     }
