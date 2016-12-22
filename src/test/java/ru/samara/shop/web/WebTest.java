@@ -37,14 +37,14 @@ abstract public class WebTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-//    @Autowired
-//    private FilterChainProxy restSecurityFilterChain;
+    @Autowired
+    private FilterChainProxy restSecurityFilterChain;
 
     @PostConstruct
     void postConstruct() {
-//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(restSecurityFilterChain).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(restSecurityFilterChain).build();
 //        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @PersistenceContext

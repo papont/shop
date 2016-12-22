@@ -10,6 +10,7 @@ import ru.samara.shop.UserTestData.TestUser;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
 import ru.samara.shop.service.UserService;
+import ru.samara.shop.util.exception.NotFoundException;
 import ru.samara.shop.web.WebTest;
 import ru.samara.shop.web.json.JsonUtil;
 
@@ -40,7 +41,7 @@ public class AdminRestControllerTest extends WebTest {
     @Test
     public void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + (START_SEQ + 1))
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -48,10 +49,10 @@ public class AdminRestControllerTest extends WebTest {
     }
 
 
-    @Test
+    @Test //(expected =NotFoundException.class )
     public void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + (1))
-                .with(TestUtil.userHttpBasic(ADMIN)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNotFound())
                 .andDo(print())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
@@ -59,7 +60,8 @@ public class AdminRestControllerTest extends WebTest {
 
     @Test
     public void testGetUnauth() throws Exception {
-        mockMvc.perform(get(REST_URL).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(get(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isForbidden());
     }
@@ -67,8 +69,7 @@ public class AdminRestControllerTest extends WebTest {
     @Test
     public void testGetByEmail() throws Exception {
         mockMvc.perform(get(REST_URL + "by?email=" + USER.getEmail())
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(USER));
