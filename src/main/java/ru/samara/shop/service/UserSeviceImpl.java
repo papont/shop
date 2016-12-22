@@ -72,7 +72,7 @@ public class UserSeviceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = repository.getByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User " + email + "is nor found");
+            throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new LoggedUser(user);
     }

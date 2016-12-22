@@ -18,9 +18,10 @@ import static java.util.Objects.*;
  * Mock implementation
  */
 public class LoggedUser implements UserDetails{
-    protected int id = BaseEntity.START_SEQ;
-    protected Set<Role> roles = Collections.singleton(Role.ROLE_USER);
-    protected boolean enabled = true;
+//    protected int id = BaseEntity.START_SEQ;
+//    protected Set<Role> roles = Collections.singleton(Role.ROLE_USER);
+//    protected boolean enabled = true;
+
     protected User user;
 
     public LoggedUser(User user) {
@@ -30,6 +31,10 @@ public class LoggedUser implements UserDetails{
 //        enabled = user.isEnabled();
     }
 
+    /**
+     * noauth -> null
+     * auth -> LoggedUser
+     */
     public static LoggedUser safeGet() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -41,6 +46,7 @@ public class LoggedUser implements UserDetails{
         return (user instanceof LoggedUser) ? (LoggedUser) user : null;
     }
 
+    //stub
     //private static LoggedUser LOGGED_USER = new LoggedUser();
 
     public static LoggedUser get() {
@@ -54,12 +60,12 @@ public class LoggedUser implements UserDetails{
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return user.isEnabled();
     }
 
     @Override
     public Set<Role> getAuthorities() {
-        return roles;
+        return user.getRoles();
     }
 
     @Override

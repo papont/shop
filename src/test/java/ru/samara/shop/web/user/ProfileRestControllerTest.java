@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 //import static ru.samara.shop.TestUtil.userHttpBasic;
+import static ru.samara.shop.TestUtil.userHttpBasic;
 import static ru.samara.shop.UserTestData.*;
 import static  ru.samara.shop.UserTestData.MATCHER;
 import static  ru.samara.shop.UserTestData.USER;
@@ -56,6 +57,7 @@ public class ProfileRestControllerTest extends WebTest {
     @Test
     public void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL)
+                .with(userHttpBasic(USER))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         MATCHER.assertListEquals(Arrays.asList(ADMIN), service.getAll());
