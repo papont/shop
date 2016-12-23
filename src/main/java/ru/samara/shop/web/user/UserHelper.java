@@ -21,12 +21,18 @@ public class UserHelper {
         List<User> all = service.getAll();
         all.forEach(u -> u.setPassword(null));
         return all;
-//        return service.getAll();
     }
 
     public User get(int id){
         LOG.info("get {}", id);
-        return service.get(id);
+        User user = service.get(id);
+        user.setPassword(null);
+        return user;
+    }
+
+    public User create(User user){
+        LOG.info("create {}",user);
+        return service.save(user);
     }
 
     public void delete(int id){
@@ -44,10 +50,6 @@ public class UserHelper {
         service.update(user);
     }
 
-    public User create(User user){
-        LOG.info("create {}",user);
-        return service.save(user);
-    }
 
     public void getByEmail(String email){
         LOG.info("getByEmail {}", email);
