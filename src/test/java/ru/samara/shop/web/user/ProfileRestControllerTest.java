@@ -45,7 +45,8 @@ public class ProfileRestControllerTest extends WebTest {
 
     @Test
     public void testGet() throws Exception {
-        TestUtil.print(mockMvc.perform(get(REST_URL))
+        TestUtil.print(mockMvc.perform(get(REST_URL)
+                        .with(userHttpBasic(USER)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andExpect(MATCHER.contentMatcher(USER))
@@ -68,6 +69,7 @@ public class ProfileRestControllerTest extends WebTest {
     public void testUpdate() throws Exception {
         TestUser updated = new TestUser(LoggedUser.id(), "newName", "newEmail", "newPassword", Role.ROLE_USER);
         mockMvc.perform(put(REST_URL)
+                .with(userHttpBasic(USER))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())

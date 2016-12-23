@@ -3,6 +3,7 @@ package ru.samara.shop.util;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
+import ru.samara.shop.model.User;
 
 import java.util.regex.Pattern;
 
@@ -30,5 +31,10 @@ public class PasswordUtil {
 
     public static boolean isEncoded(String newPassword) {
         return BCRYPT_PATTERN.matcher(newPassword).matches();
+    }
+
+    public static User getEncoded(User user) {
+        user.setPassword(encode(user.getPassword()));
+        return user;
     }
 }

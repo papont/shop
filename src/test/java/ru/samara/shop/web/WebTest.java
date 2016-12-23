@@ -42,8 +42,8 @@ abstract public class WebTest {
 
     @PostConstruct
     void postConstruct() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(restSecurityFilterChain).build();
-//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
+//        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(restSecurityFilterChain).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
 //        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 

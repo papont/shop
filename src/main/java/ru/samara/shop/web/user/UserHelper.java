@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import ru.samara.shop.LoggerWrapper;
 import ru.samara.shop.model.User;
 import ru.samara.shop.service.UserService;
+import ru.samara.shop.util.PasswordUtil;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class UserHelper {
     public User create(User user){
         LOG.info("create {}",user);
         return service.save(user);
+//        return service.save(PasswordUtil.getEncoded(user));
     }
 
     public void delete(int id){
@@ -48,6 +50,7 @@ public class UserHelper {
             throw LOG.getIllegalStateException(user + "don't updated");
         }
         service.update(user);
+//        service.update(PasswordUtil.getEncoded(user));
     }
 
 

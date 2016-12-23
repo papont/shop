@@ -9,11 +9,32 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/webjars/**" security="none"/>
 
+
+
+
+    <!--<http pattern="/rest/**" use-expressions="true" create-session="stateless">-->
     <http pattern="/rest/**" name="restSecurityFilterChain"
-          use-expressions="true" create-session="stateless">
+        use-expressions="true" create-session="stateless">
         <http-basic/>
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <!--<csrf disabled="true"/>-->
+    </http>
+
+    <http use-expressions="true">
+        <!--<intercept-url pattern="/login" access="permitAll"/>-->
+        <!--<intercept-url pattern="/register" access="permitAll"/>-->
+
+        <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <form-login/>
+        <logout/>
+
+        <!--<form-login login-page="/login" default-target-url="/users" authentication-failure-url="/login?error=true"-->
+            <!--login-processing-url="/spring_security_check"/>-->
+
+        <!--<logout logout-success-url="/login"/>-->
         <!--<csrf disabled="true"/>-->
     </http>
 
@@ -30,16 +51,17 @@
         <!--&lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;-->
     <!--</http>-->
 
-    <!--<beans:bean class="ru.samara.shop.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>-->
+    <!--<beans:bean class="ru.samara.shop.util.PasswordUtil" id="passwordEncoder"-->
+                <!--factory-method="getPasswordEncoder"/>-->
 
     <authentication-manager>
-    <authentication-provider user-service-ref="userService">
-            <!--<password-encoder ref="passwordEncoder"/>-->
-    </authentication-provider>
+        <authentication-provider user-service-ref="userService">
+            <!--<password-encoder ref="passwordEncoder"  />-->
+        </authentication-provider>
 
         <!--<authentication-provider>-->
             <!--<user-service>-->
-                <!--<user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>-->
+                <!--<user name="user@yandex.ru" password="user" authorities="ROLE_USER"/>-->
                 <!--<user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>-->
             <!--</user-service>-->
             <!--<jdbc-user-service data-source-ref="dataSource"-->

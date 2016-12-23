@@ -26,9 +26,6 @@ public class LoggedUser implements UserDetails{
 
     public LoggedUser(User user) {
         this.user = user;
-//        id = user.getId();
-//        roles = user.getRoles();
-//        enabled = user.isEnabled();
     }
 
     /**
@@ -56,6 +53,7 @@ public class LoggedUser implements UserDetails{
     }
 
     public static int id() {
+//        return BaseEntity.START_SEQ;
         return get().user.getId();
     }
 
