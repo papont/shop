@@ -28,9 +28,9 @@ public interface AbstractUser {
 
     void setPassword(String password);
 
-    @Digits(fraction = 0, integer = 4)
-    @NotNull
-    int getCaloriesPerDay();
-
-    void setCaloriesPerDay(int caloriesPerDay);
+//    @Digits(fraction = 0, integer = 4)
+//    @NotNull
+//    int getCaloriesPerDay();
+//
+//    void setCaloriesPerDay(int caloriesPerDay);
 }

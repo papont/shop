@@ -19,37 +19,28 @@
         <intercept-url pattern="/rest/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()"/>
 
-        <!--<csrf disabled="true"/>-->
+        <csrf disabled="true"/>
     </http>
 
-    <http use-expressions="true">
-        <!--<intercept-url pattern="/login" access="permitAll"/>-->
-        <!--<intercept-url pattern="/register" access="permitAll"/>-->
+    <!--<http use-expressions="true">-->
+
+    <http>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/register" access="permitAll"/>
 
         <intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/**" access="isAuthenticated()" />
-        <form-login/>
-        <logout/>
+        <!--<form-login/>-->
+        <!--<logout/>-->
 
-        <!--<form-login login-page="/login" default-target-url="/users" authentication-failure-url="/login?error=true"-->
-            <!--login-processing-url="/spring_security_check"/>-->
+        <form-login login-page="/login"
+                    default-target-url="/users"
+                    authentication-failure-url="/login?error=true"
+                    login-processing-url="/spring_security_check"/>
 
-        <!--<logout logout-success-url="/login"/>-->
-        <!--<csrf disabled="true"/>-->
+        <logout logout-success-url="/login"/>
+        <csrf disabled="true"/>
     </http>
-
-    <!--<http>-->
-        <!--<intercept-url pattern="/login" access="permitAll"/>-->
-        <!--<intercept-url pattern="/register" access="permitAll"/>-->
-
-        <!--<intercept-url pattern="/**/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
-        <!--<intercept-url pattern="/**" access="isAuthenticated()" />-->
-        <!--<form-login login-page="/login" default-target-url="/meals"-->
-                    <!--authentication-failure-url="/login?error=true"-->
-                    <!--login-processing-url="/spring_security_check"/>-->
-        <!--<logout logout-success-url="/login"/>-->
-        <!--&lt;!&ndash;<csrf disabled="true"/>&ndash;&gt;-->
-    <!--</http>-->
 
     <!--<beans:bean class="ru.samara.shop.util.PasswordUtil" id="passwordEncoder"-->
                 <!--factory-method="getPasswordEncoder"/>-->
