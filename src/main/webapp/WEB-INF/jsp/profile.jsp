@@ -15,7 +15,7 @@
     <div class="container">
         <div class="shadow">
             <h2>
-                ${register ? 'Register new' : userTo.name.concat(' profile')}
+                <c:out value="${register ? 'Register new' : userTo.name.concat(' profile')}"/>
             </h2>
 
             <div class="view-box">

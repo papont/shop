@@ -3,9 +3,11 @@ package ru.samara.shop.web.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.samara.shop.LoggerWrapper;
+import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
 import ru.samara.shop.service.UserService;
 import ru.samara.shop.util.PasswordUtil;
+import ru.samara.shop.util.UserTo;
 
 import java.util.List;
 
@@ -63,5 +65,38 @@ public class UserHelper {
         LOG.info("enable " + id);
         service.enable(id, enable);
     }
+
+    public static User updateUser(User oldUser, User user) {
+        oldUser.setName(user.getName());
+        oldUser.setEmail(user.getEmail().toLowerCase());
+        if (user.getPassword() != null) {
+            oldUser.setPassword(user.getPassword());
+        }
+
+        oldUser.setRoles(user.getRoles());
+        oldUser.setEnabled(user.isEnabled());
+        return oldUser;
+    }
+
+
+    public static User updateUser(User oldUser, UserTo userTo) {
+        //PasswordUtil.getEncoded(userTo);
+        oldUser.setName(userTo.getName());
+        oldUser.setEmail(userTo.getEmail().toLowerCase());
+        oldUser.setPassword(userTo.getPassword());
+        return oldUser;
+    }
+
+    public static User asNewUser(UserTo userTo) {
+        //PasswordUtil.getEncoded(userTo);
+        return new User(null,
+                        userTo.getName(),
+                        userTo.getEmail().toLowerCase(),
+                        userTo.getPassword(),
+                        true,
+                        Role.ROLE_USER);
+    }
+
 }
+
 

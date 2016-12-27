@@ -37,4 +37,5 @@ public class PasswordUtil {
         user.setPassword(encode(user.getPassword()));
         return user;
     }
+
 }

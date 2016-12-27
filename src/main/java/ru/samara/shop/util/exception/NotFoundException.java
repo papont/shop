@@ -1,10 +1,9 @@
 package ru.samara.shop.util.exception;
 
-/**
- * @author papont
- * @date 13.11.16.
- */
-//@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No data found") //494
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No data found") //494
 public class NotFoundException extends RuntimeException {
 
     public NotFoundException(String message) {

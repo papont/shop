@@ -1,12 +1,16 @@
 package ru.samara.shop.util;
 
-//import ru.samara.shop.util.AbstractUser;
+import ru.samara.shop.model.Role;
+import ru.samara.shop.model.User;
 
 import java.io.Serializable;
 
 
 public class UserTo implements AbstractUser, Serializable {
     protected int id;
+    protected String name;
+    protected String email;
+    protected String password;
 
     public UserTo() {
     }
@@ -16,12 +20,6 @@ public class UserTo implements AbstractUser, Serializable {
         this.name = name;
         this.email = email;
     }
-
-    protected String name;
-
-    protected String email;
-
-    protected String password;
 
     public void setId(int id) {
         this.id = id;
@@ -52,7 +50,6 @@ public class UserTo implements AbstractUser, Serializable {
         this.password = password;
     }
 
-
     public String getName() {
         return name;
     }
@@ -69,5 +66,17 @@ public class UserTo implements AbstractUser, Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    @Override
+    public void updateUser(User user) {
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+    }
+
+    @Override
+    public User asNewUser() {
+        return new User(null, name, email, password, true, Role.ROLE_USER);
     }
 }

@@ -6,8 +6,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.samara.shop.model.BaseEntity;
 import ru.samara.shop.model.Role;
 import ru.samara.shop.model.User;
+import ru.samara.shop.util.UserTo;
+import ru.samara.shop.util.UserUtil;
 //import sun.plugin.liveconnect.SecurityContextHelper;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -17,15 +20,25 @@ import static java.util.Objects.*;
 /**
  * Mock implementation
  */
-public class LoggedUser implements UserDetails{
+public class LoggedUser implements UserDetails, Serializable {
 //    protected int id = BaseEntity.START_SEQ;
 //    protected Set<Role> roles = Collections.singleton(Role.ROLE_USER);
 //    protected boolean enabled = true;
 
-    protected User user;
+
+    private User user;
 
     public LoggedUser(User user) {
-        this.user = user;
+        this.user = user; //UserUtil.asTo(user);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public UserTo getUserTo() {
+        User user = get().getUser();
+        return new UserTo(user.getId(), user.getName(), user.getEmail());
     }
 
     /**

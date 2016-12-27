@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.samara.shop.LoggedUser;
+import ru.samara.shop.model.User;
 import ru.samara.shop.service.UserService;
+import ru.samara.shop.util.PasswordUtil;
 import ru.samara.shop.util.UserTo;
 import ru.samara.shop.web.user.UserHelper;
 
@@ -50,23 +52,25 @@ public class RootController {
             return PROFILE;
         } else {
             status.setComplete();
-            userService.save(UserHelper.updateUser(LoggedUser.get().getUser()), userTo));
+            userService.save(UserHelper.updateUser(LoggedUser.get().getUser(), userTo));
             return "redirect:users";
         }
     }
 
-    @RequestMapping(value="/profile", method= RequestMethod.GET)
-    public String saveProfile(ModelMap model) {
-        model.put("userTo", LoggedUser.get().getUserTo());
-        return PROFILE;
-    }
-
-    @RequestMapping(value="/register", method= RequestMethod.GET)
-    public String register(ModelMap model) {
-        model.put("userTo", new UserTo());
-        model.put("register", true);
-        return PROFILE;
-    }
+//    @RequestMapping(value="/profile", method= RequestMethod.GET)
+//    public String profile(ModelMap model) {
+//        UserTo userTo = LoggedUser.get().getUserTo();
+//        model.put("userTo", userTo);
+//        return PROFILE;
+//    }
+//
+//    public static User updateUser(User oldUser, UserTo userTo) {
+//        PasswordUtil.getEncoded(userTo);
+//        oldUser.setName(userTo.getName());
+//        oldUser.setEmail(userTo.getEmail().toLowerCase());
+//        oldUser.setPassword(userTo.getPassword());
+//        return oldUser;
+//    }
 
 
     @RequestMapping(value="/meals", method= RequestMethod.GET)

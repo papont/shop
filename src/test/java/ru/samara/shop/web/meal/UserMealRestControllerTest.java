@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.junit.Assert.*;
 import static ru.samara.shop.Profiles.*;
 import static ru.samara.shop.MealTestData.*;
-//import static ru.samara.shop.TestUtil.userHttpBasic;
-//import static ru.samara.shop.UserTestData.USER;
+import static ru.samara.shop.TestUtil.userHttpBasic;
+import static ru.samara.shop.UserTestData.USER;
 import static ru.samara.shop.model.BaseEntity.START_SEQ;
 
 @ActiveProfiles({POSTGRES, DATAJPA})
@@ -44,22 +44,22 @@ public class UserMealRestControllerTest extends WebTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MATCHER.contentMatcher(MEAL1));
     }
-//
-//    @Test
-//    public void testGetNotFound() throws Exception {
-//        mockMvc.perform(get(REST_URL + (ADMIN_MEAL.getId())))
-//                //.with(userHttpBasic(USER)))
-//                .andExpect(status().isNotFound());
-//    }
-//
-//    @Test
-//    public void testDeleteNotFound() throws Exception {
-//        mockMvc.perform(delete(REST_URL + (ADMIN_MEAL.getId()))
-//                .contentType(MediaType.APPLICATION_JSON))
-////                .with(userHttpBasic(USER)))
-//                .andDo(print())
-//                .andExpect(status().isNotFound());
-//    }
+
+    @Test
+    public void testGetNotFound() throws Exception {
+        mockMvc.perform(get(REST_URL + (ADMIN_MEAL.getId()))
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testDeleteNotFound() throws Exception {
+        mockMvc.perform(delete(REST_URL + (ADMIN_MEAL.getId()))
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(USER)))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     public void testDelete() throws Exception {

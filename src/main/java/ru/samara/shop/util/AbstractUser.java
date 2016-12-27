@@ -2,6 +2,8 @@ package ru.samara.shop.util;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import ru.samara.shop.model.User;
+
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +29,10 @@ public interface AbstractUser {
     String getPassword();
 
     void setPassword(String password);
+
+    void updateUser(User user);
+
+    User asNewUser();
 
 //    @Digits(fraction = 0, integer = 4)
 //    @NotNull
