@@ -14,18 +14,22 @@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <a class="navbar-brand" href="meal">
+
+        <c:url value="/meals" var="meals"/>
+        <a class="navbar-brand" href="${meals}">
             <fmt:message key="app.title"/>
         </a>
 
         <div class="collapse navbar-collapse">
-            <form:form class="navbar-form navbar-right" method="post">
+            <c:url value="/logout" var="logout"/>
+            <form:form class="navbar-form navbar-right" action="${logout}" method="post">
                 <sec:authorize access="isAuthenticated()">
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-info" role="button" href="users"><fmt:message key="users.title"/></a>
+                        <c:url value="/users" var="users"/>
+                        <a class="btn btn-info" role="button" href="${users}"><fmt:message key="users.title"/></a>
                     </sec:authorize>
                     <a class="btn btn-info" role="button" href="profile">${user.getName()} profile</a>
-                    <a class="btn btn-primary" role="button" href="logout">Logout</a>
+                    <input type="submit" class="btn btn-primary"  value="Logout"/>
                 </sec:authorize>
             </form:form>
         </div>

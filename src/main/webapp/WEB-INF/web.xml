@@ -14,10 +14,11 @@
         <param-value>postgres, datajpa</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>
-        <param-value>ru</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>javax.servlet.jsp.jstl.fmt.locale</param-name>-->
+        <!--<param-value>en</param-value>-->
+        <!--&lt;!&ndash;<param-value>ru</param-value>&ndash;&gt;-->
+    <!--</context-param>-->
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

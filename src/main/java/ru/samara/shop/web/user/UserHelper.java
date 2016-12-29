@@ -35,8 +35,8 @@ public class UserHelper {
 
     public User create(User user){
         LOG.info("create {}",user);
-        return service.save(user);
-//        return service.save(PasswordUtil.getEncoded(user));
+        //return service.save(user);
+        return service.save(PasswordUtil.getEncoded(user));
     }
 
     public void delete(int id){
@@ -51,8 +51,8 @@ public class UserHelper {
         } else if (id != user.getId()) {
             throw LOG.getIllegalStateException(user + "don't updated");
         }
-        service.update(user);
-//        service.update(PasswordUtil.getEncoded(user));
+//        service.update(user);
+        service.update(PasswordUtil.getEncoded(user));
     }
 
 
